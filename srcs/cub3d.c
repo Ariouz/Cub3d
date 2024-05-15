@@ -1,29 +1,22 @@
 #include "../includes/cub3d.h"
 
-void    clean(t_cub *cub)
+void    clean(t_game *game)
 {
-    mlx_destroy_window(cub->mlx, cub->window);
-    mlx_destroy_display(cub->mlx);
-    free(cub);
+    mlx_destroy_window(game->mlx, game->window);
+    mlx_destroy_display(game->mlx);
+    free(game);
 }
 
 int main(void)
 {
-    t_cub   *cub;
+    t_game   *game;
 
-    cub = malloc(sizeof(t_cub));
-    cub->mlx = NULL;
-    cub->window = NULL;
-    cub->mlx = mlx_init();
-
-    if (cub->mlx == NULL)
-    {
-        free(cub);
+    game = malloc(sizeof(t_game));
+    if (!game)
         exit(1);
-    }
-    cub->window = mlx_new_window(cub->mlx, 960, 540, "cub3d");
-    init_listener(cub);
-    mlx_loop(cub->mlx);
-    clean(cub);
+    if (init_game(game) != 0)
+        exit(1);
+    mlx_loop(game->mlx);
+    clean(game);
     return (0);
 }
