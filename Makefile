@@ -5,15 +5,19 @@ get_next_line.c \
 get_next_line_utils.c)
 
 SRCS_DIR= srcs/
-SRCS= $(GNL_SRCS) \
-$(addprefix $(SRCS_DIR), \
+SRCS= $(GNL_SRCS) $(addprefix $(SRCS_DIR), \
 cub3d.c \
 manager/listener_manager.c \
 listener/exit_listener.c \
 listener/key_press_listener.c \
 utils/initializer.c \
+utils/draw_utils.c \
+utils/image.c \
+utils/math_utils.c \
 parser/map_init.c \
-parser/map_reader.c)
+parser/map_reader.c \
+renderer/renderer.c \
+renderer/raycaster.c)
 
 OBJS= $(SRCS:.c=.o)
 

@@ -10,9 +10,6 @@ void    clean(t_game *game)
 
 void    free_map(t_map *map)
 {
-    int     i = 0;
-    while (map->tiles[i] != 0)
-        free(map->tiles[i++]);
     free(map->tiles);
     free(map);
 }

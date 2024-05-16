@@ -2,7 +2,6 @@
 # define CUB3D_H
 
 # include "../libs/libft/libft.h"
-# include "../libs/libft/ft_printf/ft_printf.h"
 # include "../libs/gnl/get_next_line.h"
 # include "../libs/mlx/mlx.h"
 # include "../libs/mlx/mlx_int.h"
@@ -11,6 +10,16 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <math.h>
+
+# define PI 3.1415926535
+# define P2 PI / 2
+# define P3 3 * PI / 2
+# define DR 0.0174533
+
+# define PLAYER_SPEED 5
+# define PLAYER_ROTATION_SPEED 0.05
+# define TILE_SIZE 64
+# define PLAYER_FOV 60
 
 # define DESTROY_HOOK 17
 # define KEY_PRESSED_HOOK 2
@@ -21,24 +30,61 @@
 # define KEY_S 115
 # define KEY_D 100
 
-# define KEY_ARROW_RIGHT 65563
-# define KEY_ARROW_LEFT 65561
+# define KEY_ARROW_RIGHT 65363
+# define KEY_ARROW_LEFT 65361
 
 # define MAP_WALL 1
 # define MAP_AIR 0
+
+typedef struct s_raycast
+{
+    int r;
+    int mx;
+    int my;
+    int mp;
+    int dof;
+    int px;
+    int py;
+    double rx;
+    double ry;
+    double ra;
+    double xo;
+    double yo;
+    double atan;
+
+    double dis_h;
+    double hx;
+    double hy;
+    double dis_v;
+    double vx;
+    double vy;
+    double dist;
+}   t_raycast;
 
 typedef struct s_player
 {
     double x;
     double y;
+    double dirX;
+    double dirY;
+    double angle;
 }   t_player;
+
+typedef struct s_map_setting
+{
+    int height;
+    int width;
+    int size;
+}   t_map_setting;
 
 typedef struct s_map
 {
-    int **tiles;
+    int *tiles;
     int height;
+    int width;
     int player_x;
     int player_y;
+    t_map_setting *setting;
 }  t_map;
 
 typedef struct s_game
@@ -47,14 +93,35 @@ typedef struct s_game
     void        *window;
     t_map       *map;
     t_player    *player;
+    int win_width;
+    int win_height;
+    t_img   *cast_image;
+    t_img   *main_image;
 }   t_game;
 
 // Parser and Init
 int init_map(t_game *game);
 int read_map(t_map *map);
 
+// Render
+int    render_map(t_game *game);
+void    check_horizontal(t_map *map, t_raycast *ray);
+void    check_vertical(t_map *map, t_raycast *ray);
+void    draw_rays(t_game *game);
+void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int color);
+
 // Utils
-int init_game(t_game *game);
+unsigned int	get_pixel_img(t_img img, int x, int y);
+int     init_game(t_game *game);
+double  to_radians(double degrees);
+double  center_pos(double pos);
+double  dist(float ax, float ay, float bx, float by);
+int     get_player_tile(double player_pos);
+int     get_tile_at(int x, int y, t_map *map);
+void	put_pixel_img(t_img img, int x, int y, int color);
+void	put_img_to_img(t_img *dst, t_img *src, int x, int y);
+void    draw_line_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color);
+void    draw_rect_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color);
 
 // Managers
 void    init_listener(t_game *cub);
