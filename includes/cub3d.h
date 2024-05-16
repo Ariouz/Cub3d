@@ -2,6 +2,7 @@
 # define CUB3D_H
 
 # include "../libs/libft/libft.h"
+# include "../libs/libft/ft_printf/ft_printf.h"
 # include "../libs/gnl/get_next_line.h"
 # include "../libs/mlx/mlx.h"
 # include "../libs/mlx/mlx_int.h"
@@ -28,8 +29,8 @@
 
 typedef struct s_player
 {
-    int x;
-    int y;
+    double x;
+    double y;
 }   t_player;
 
 typedef struct s_map

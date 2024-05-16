@@ -2,7 +2,7 @@
 
 int listen_key_press(int keycode, t_game *game)
 {
-    ft_printf("key: %d\n", keycode);
+    //ft_printf("key: %d\n", keycode);
 
     if (keycode == KEY_ESCAPE)
         return listen_exit(game);

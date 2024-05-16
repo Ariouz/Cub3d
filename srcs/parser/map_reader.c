@@ -29,11 +29,11 @@ void    print_map(t_map *map)
     {
         while (map->tiles[i][x] >= 0)
         {
-            ft_printf("%d ", map->tiles[i][x]);
+            //ft_printf("%d ", map->tiles[i][x]);
             x++;
         }
         x = 0;
-        ft_printf("\n");
+        //ft_printf("\n");
         i++;
     }
 }
