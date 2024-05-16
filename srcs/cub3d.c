@@ -4,7 +4,17 @@ void    clean(t_game *game)
 {
     mlx_destroy_window(game->mlx, game->window);
     mlx_destroy_display(game->mlx);
+    free(game->mlx);
     free(game);
+}
+
+void    free_map(t_map *map)
+{
+    int     i = 0;
+    while (map->tiles[i] != 0)
+        free(map->tiles[i++]);
+    free(map->tiles);
+    free(map);
 }
 
 int main(void)
@@ -17,6 +27,7 @@ int main(void)
     if (init_game(game) != 0)
         exit(1);
     mlx_loop(game->mlx);
+    free_map(game->map);
     clean(game);
     return (0);
 }

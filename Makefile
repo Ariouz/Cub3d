@@ -34,7 +34,7 @@ GNL_DIR= libs/gnl
 
 LIBS= -Iincludes -L$(MLX_DIR) -I$(MLX_DIR) -lmlx -lXext -lX11 -lm -I$(GNL_DIR)
 
-FLAGS= -Wall -Werror -Wextra
+FLAGS= -g -Wall -Werror -Wextra
 
 $(NAME): $(LFT_A) $(OBJS) 
 	gcc $(FLAGS) $(OBJS) $(LFT_A) $(LIBS) -o $(NAME)

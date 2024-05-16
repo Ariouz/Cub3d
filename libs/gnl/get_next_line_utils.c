@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:39:12 by vicalvez          #+#    #+#             */
-/*   Updated: 2023/12/21 15:11:15 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/16 10:09:03 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strdup(char *s)
+char	*gnl_ft_strdup(char *s)
 {
 	char	*dup;
 	int		i;
 
-	dup = malloc(sizeof(char) * str_len(s) + 1);
+	dup = malloc(sizeof(char) * gnl_str_len(s) + 1);
 	i = 0;
 	while (s[i])
 	{
@@ -28,7 +28,7 @@ char	*ft_strdup(char *s)
 	return (dup);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*gnl_ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
@@ -41,7 +41,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		s1 = malloc(sizeof(char) * 1);
 		s1[0] = 0;
 	}
-	dst = malloc(sizeof(char) * str_len((char *)s1) + str_len((char *)s2) + 1);
+	dst = malloc(sizeof(char) * gnl_str_len((char *)s1) + gnl_str_len((char *)s2) + 1);
 	if (!dst)
 		return (NULL);
 	while (s1[++i])
@@ -57,7 +57,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (dst);
 }
 
-int	str_len(char *s)
+int	gnl_str_len(char *s)
 {
 	int	i;
 
@@ -69,7 +69,7 @@ int	str_len(char *s)
 	return (i);
 }
 
-char	*ft_substr(char const *s, size_t start, size_t len)
+char	*gnl_ft_substr(char const *s, size_t start, size_t len)
 {
 	char	*sub;
 	size_t	i;
@@ -77,10 +77,10 @@ char	*ft_substr(char const *s, size_t start, size_t len)
 	i = 0;
 	if (!s)
 		return (NULL);
-	if (start >= (size_t) str_len((char *)s))
+	if (start >= (size_t) gnl_str_len((char *)s))
 		len = 0;
-	if (str_len((char *)s) - start < len)
-		len = str_len((char *)s) - start;
+	if (gnl_str_len((char *)s) - start < len)
+		len = gnl_str_len((char *)s) - start;
 	sub = malloc(sizeof(char) * len + 1);
 	if (!sub)
 		return (NULL);
@@ -95,7 +95,7 @@ char	*ft_substr(char const *s, size_t start, size_t len)
 	return (sub);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*gnl_ft_strchr(const char *s, int c)
 {
 	int		i;
 	char	*result;

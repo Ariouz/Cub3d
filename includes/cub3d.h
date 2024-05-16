@@ -2,11 +2,14 @@
 # define CUB3D_H
 
 # include "../libs/libft/libft.h"
+# include "../libs/gnl/get_next_line.h"
 # include "../libs/mlx/mlx.h"
 # include "../libs/mlx/mlx_int.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <math.h>
 
 # define DESTROY_HOOK 17
 # define KEY_PRESSED_HOOK 2
@@ -31,9 +34,10 @@ typedef struct s_player
 
 typedef struct s_map
 {
-    char **tiles;
-    int width;
+    int **tiles;
     int height;
+    int player_x;
+    int player_y;
 }  t_map;
 
 typedef struct s_game
@@ -44,7 +48,7 @@ typedef struct s_game
     t_player    *player;
 }   t_game;
 
-// Parser
+// Parser and Init
 int init_map(t_game *game);
 int read_map(t_map *map);
 
@@ -55,9 +59,11 @@ int init_game(t_game *game);
 void    init_listener(t_game *cub);
 
 // Listeners
-int    listen_exit(t_game *cub);
+int listen_exit(t_game *cub);
 int listen_key_press(int keycode, t_game *cub);
 
+// Cleanup
 void    clean(t_game *game);
+void    free_map(t_map *map);
 
 #endif

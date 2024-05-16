@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:28:28 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/15 14:40:29 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/16 10:09:49 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-int		str_len(char *s);
+int		gnl_str_len(char *s);
 char	*get_next_line(int fd);
-char	*ft_substr(char const *s, size_t start, size_t len);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strdup(char *s);
+char	*gnl_ft_substr(char const *s, size_t start, size_t len);
+char	*gnl_ft_strchr(const char *s, int c);
+char	*gnl_ft_strjoin(char *s1, char *s2);
+char	*gnl_ft_strdup(char *s);
 
 #endif

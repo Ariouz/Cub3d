@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:48:10 by vicalvez          #+#    #+#             */
-/*   Updated: 2023/12/21 15:12:19 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/16 10:09:34 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_next_eol(int fd, char *str)
 	if (!buffer)
 		return (NULL);
 	read_res = 1;
-	while (!ft_strchr(str, '\n') && read_res != 0)
+	while (!gnl_ft_strchr(str, '\n') && read_res != 0)
 	{
 		read_res = read(fd, buffer, BUFFER_SIZE);
 		if (read_res == -1)
@@ -34,7 +34,7 @@ char	*get_next_eol(int fd, char *str)
 			return (NULL);
 		}
 		buffer[read_res] = 0;
-		str = ft_strjoin(str, buffer);
+		str = gnl_ft_strjoin(str, buffer);
 	}
 	free(buffer);
 	return (str);
@@ -50,7 +50,7 @@ char	*get_line(char *str)
 		return (NULL);
 	while (str[i] != '\n' && str[i])
 		i++;
-	s = ft_substr(str, 0, i + 1);
+	s = gnl_ft_substr(str, 0, i + 1);
 	if (!s)
 		return (NULL);
 	return (s);
@@ -60,12 +60,13 @@ char	*rem_previous_line(char *str, char *line)
 {
 	char	*ret;
 
-	if (!str[str_len(line)])
+	if (!str[gnl_str_len(line)])
 	{
 		free(str);
 		return (NULL);
 	}
-	ret = ft_substr(str, str_len(line), str_len(str) - str_len(line));
+	ret = gnl_ft_substr(str, gnl_str_len(line), gnl_str_len(str)
+		 - gnl_str_len(line));
 	free(str);
 	if (!ret)
 		return (NULL);
