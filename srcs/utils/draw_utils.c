@@ -24,10 +24,11 @@ void    draw_line_to_img(t_img *img, int beginX, int beginY, int endX, int endY,
     }
 }
 
-void    draw_rect_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color)
+void    draw_rect_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color, int width)
 {
     int i;
     int j;
+    (void) width;
 
     i = 0;
     while (i < endY - beginY)

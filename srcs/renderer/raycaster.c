@@ -19,7 +19,7 @@ void    draw_rays(t_game *game)
 	if (ray->ra > 2 * PI) ray->ra -= 2 * PI;
 
 	i= 0;
-	while (i < 60)
+	while (i < PLAYER_FOV)
 	{
 		ray->px = player->x;
 		ray->py = player->y;
@@ -39,14 +39,14 @@ void    draw_rays(t_game *game)
 			ray->rx = ray->vx;
 			ray->ry = ray->vy;
 			ray->dist = ray->dis_v;
-			draw_walls(game, ray, player, i, 0xFF0000);
+			draw_walls(game, ray, player, i, 0x770000);
 		}
 		if (ray->dis_h < ray->dis_v)
 		{
 			ray->rx = ray->hx;
 			ray->ry = ray->hy;
 			ray->dist = ray->dis_h;
-			draw_walls(game, ray, player, i, 0x770000);
+			draw_walls(game, ray, player, i, 0xDD0000);
 		}
 
 
@@ -68,10 +68,18 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int col
 	if (ca < 0) ca += 2 * PI;
 	if (ca > 2 * PI) ca -= 2 * PI;
 	ray->dist *= cos(ca);
-	lineH = (TILE_SIZE * game->win_height) / ray->dist;
-	lineO = game->win_height / 2 - lineH / 2;
-	if (lineH > game->win_height) lineH = game->win_height;
-	draw_line_to_img(game->cast_image, rid * 4, lineO, rid * 4, lineH + lineO, color);
+	lineH = (TILE_SIZE * game->win_width) / ray->dist;
+	if (lineH > game->win_width) lineH = game->win_width;
+	lineO = game->win_height / 2 - (lineH / 2);
+	
+	(void) lineO;
+	(void) rid;
+	(void) color;
+	double ridM = game->win_width / PLAYER_FOV;
+	(void) ridM;
+	//printf("%f\n", ridM);
+	draw_rect_to_img(game->cast_image, rid * ridM - ridM, lineO, rid * ridM + ridM, lineH + lineO, color, ridM);
+	//draw_line_to_img(game->cast_image, rid * ridM, lineO, rid * ridM , lineH + lineO, color);
 }
 
 void    check_horizontal(t_map *map, t_raycast *ray)

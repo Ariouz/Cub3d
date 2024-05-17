@@ -119,14 +119,13 @@ void print_map(t_map *map)
     int i;
     
     i = 0;
-    while (map->tiles[i] != -1)
+    while (i < map->height * map->width)
     {
         ft_printf("%d,", map->tiles[i]);
-        if (i % map->width == map->width -1 )
+        if (i % map->width == map->width -1)
             ft_printf("\n");
         i++;
     }
-    ft_printf("\n");
 }
 
 int read_map(t_map *map)
@@ -149,7 +148,7 @@ int read_map(t_map *map)
     map->width = setting->width;
     line = get_next_line(fd);
     y = 0;
-    while (line != NULL && line[0])
+    while (line != NULL)
     {
         x = 0;
         while (line[x] && line[x] != '\n')

@@ -16,13 +16,14 @@
 # define P3 3 * PI / 2
 # define DR 0.0174533
 
-# define PLAYER_SPEED 5
-# define PLAYER_ROTATION_SPEED 0.05
+# define PLAYER_SPEED 8
+# define PLAYER_ROTATION_SPEED 0.1
 # define TILE_SIZE 64
 # define PLAYER_FOV 60
 
 # define DESTROY_HOOK 17
 # define KEY_PRESSED_HOOK 2
+# define KEY_RELEASE_HOOK 3
 
 # define KEY_ESCAPE 65307
 # define KEY_W 119
@@ -87,6 +88,16 @@ typedef struct s_map
     t_map_setting *setting;
 }  t_map;
 
+typedef struct s_pressed_keys
+{
+    int w;
+    int a;
+    int s;
+    int d;
+    int la;
+    int ra;
+}   t_pressed_keys;
+
 typedef struct s_game
 {
     void        *mlx;
@@ -97,6 +108,7 @@ typedef struct s_game
     int win_height;
     t_img   *cast_image;
     t_img   *main_image;
+    t_pressed_keys *keys;
 }   t_game;
 
 // Parser and Init
@@ -121,7 +133,7 @@ int     get_tile_at(int x, int y, t_map *map);
 void	put_pixel_img(t_img img, int x, int y, int color);
 void	put_img_to_img(t_img *dst, t_img *src, int x, int y);
 void    draw_line_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color);
-void    draw_rect_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color);
+void    draw_rect_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color, int width);
 
 // Managers
 void    init_listener(t_game *cub);
@@ -129,6 +141,7 @@ void    init_listener(t_game *cub);
 // Listeners
 int listen_exit(t_game *cub);
 int listen_key_press(int keycode, t_game *cub);
+int listen_key_release(int keycode, t_game *game);
 
 // Cleanup
 void    clean(t_game *game);

@@ -2,11 +2,57 @@
 
 int listen_key_press(int keycode, t_game *game)
 {
-    t_player    *player;
+    t_pressed_keys *keys;
 
-    player = game->player;
+    keys = game->keys;
+    //printf("keycode %d\n", keycode);
     if (keycode == KEY_ESCAPE)
         return listen_exit(game);
+
+    if (keycode == KEY_W)
+        keys->w = 1;
+    if (keycode == KEY_A)
+        keys->a = 1;
+    if (keycode == KEY_S)
+        keys->s = 1;
+    if (keycode == KEY_D)
+        keys->d = 1;
+    if (keycode == KEY_ARROW_LEFT)
+        keys->la = 1;
+    if (keycode == KEY_ARROW_RIGHT)
+        keys->ra = 1;
+
+    return (0);
+}
+
+int listen_key_release(int keycode, t_game *game)
+{
+    t_pressed_keys *keys;
+
+    keys = game->keys;
+    if (keycode == KEY_ESCAPE)
+        return listen_exit(game);
+
+    if (keycode == KEY_W)
+        keys->w = 0;
+    if (keycode == KEY_A)
+        keys->a = 0;
+    if (keycode == KEY_S)
+        keys->s = 0;
+    if (keycode == KEY_D)
+        keys->d = 0;
+    if (keycode == KEY_ARROW_LEFT)
+        keys->la = 0;
+    if (keycode == KEY_ARROW_RIGHT)
+        keys->ra = 0;
+    return (0);
+}
+
+/*
+t_player    *player;
+
+    player = game->player;
+    
     
     if (keycode == KEY_W)
     {
@@ -49,6 +95,4 @@ int listen_key_press(int keycode, t_game *game)
         player->dirX = cos(player->angle) * PLAYER_SPEED;
         player->dirY = sin(player->angle) * PLAYER_SPEED;
     }
-
-    return (0);
-}
+    */
