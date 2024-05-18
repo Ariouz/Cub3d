@@ -9,7 +9,7 @@ int init_player(t_game *game)
         return (1);
     player->x = center_pos(game->map->player_x * TILE_SIZE);
     player->y = center_pos(game->map->player_y * TILE_SIZE);
-    player->angle = to_radians(90);
+    player->angle = to_radians(0);
     player->dirX = cos(player->angle) * PLAYER_SPEED;
     player->dirY = sin(player->angle) * PLAYER_SPEED;
     game->player = player;
@@ -37,8 +37,8 @@ int init_game(t_game *game)
     game->window = NULL;
     game->map = NULL;
     game->mlx = mlx_init();
-    game->win_width = 1080;
-    game->win_height = 540;
+    game->win_width = 1280;
+    game->win_height = 720;
     game->cast_image = NULL;
     game->main_image = NULL;
     init_keys(game);

@@ -30,6 +30,7 @@ void    draw_rays(t_game *game)
 		ray->dis_v = 1000000;
 		ray->vx = ray->px;
 		ray->vy = ray->py;
+		ray->dist = 0;
 	
 		check_horizontal(map, ray);
 		check_vertical(map, ray);
@@ -68,8 +69,8 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int col
 	if (ca < 0) ca += 2 * PI;
 	if (ca > 2 * PI) ca -= 2 * PI;
 	ray->dist *= cos(ca);
-	lineH = (TILE_SIZE * game->win_width) / ray->dist;
-	if (lineH > game->win_width) lineH = game->win_width;
+	lineH = (TILE_SIZE * game->win_height) / ray->dist;
+	if (lineH > game->win_height) lineH = game->win_width;
 	lineO = game->win_height / 2 - (lineH / 2);
 	
 	(void) lineO;
@@ -107,17 +108,17 @@ void    check_horizontal(t_map *map, t_raycast *ray)
 		{
 			ray->rx = ray->px;
 			ray->ry = ray->py;
-			ray->dof = 8;
+			ray->dof = 64;
 		}
 
-		while (ray->dof < 8)
+		while (ray->dof < 64)
 		{
 			ray->mx = (int) ray->rx / TILE_SIZE;
 			ray->my = (int) ray->ry / TILE_SIZE;
 			ray->mp = ray->my * map->width + ray->mx;
 			if (ray->mp > 0 && ray->mp < map->width * map->height && map->tiles[ray->mp] == MAP_WALL)
 			{
-				ray->dof = 8;
+				ray->dof = 64;
 				ray->hx = ray->rx;
 				ray->hy = ray->ry;
 				ray->dis_h = dist(ray->px, ray->py, ray->hx, ray->hy);
@@ -156,17 +157,17 @@ void    check_vertical(t_map *map, t_raycast *ray)
 		{
 			ray->rx = ray->px;
 			ray->ry = ray->py;
-			ray->dof = 8;
+			ray->dof = 64;
 		}
 
-		while (ray->dof < 8)
+		while (ray->dof < 64)
 		{
 			ray->mx = (int) ray->rx / TILE_SIZE;
 			ray->my = (int) ray->ry / TILE_SIZE;
 			ray->mp = ray->my * map->width + ray->mx;
 			if (ray->mp > 0 && ray->mp < map->width * map->height && map->tiles[ray->mp] == MAP_WALL)
 			{
-				ray->dof = 8;
+				ray->dof = 64;
 				ray->vx = ray->rx;
 				ray->vy = ray->ry;
 				ray->dis_v = dist(ray->px, ray->py, ray->vx, ray->vy);

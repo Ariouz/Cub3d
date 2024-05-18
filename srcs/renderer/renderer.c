@@ -11,6 +11,37 @@ void    draw_map(t_game *game, t_map *map)
     
     x = 0;
     y = 0;
+    maps = TILE_SIZE;
+    while (y < map->height)
+    {
+        while (x < map->width)
+        {
+            if (get_tile_at(x, y, map) == MAP_WALL)
+                color = 0x111111;
+            else
+                color = 0x777777;
+            xo = x * maps;
+            yo = y * maps;
+
+            draw_rect_to_img(game->cast_image, xo, yo, xo + maps, yo + maps, color, 0);
+            x++;
+        }
+        x = 0;
+        y++;
+    }
+}
+
+void    draw_map_mini(t_game *game, t_map *map)
+{
+    int x;
+    int y;
+    int xo;
+    int yo;
+    int color;
+    int maps;
+    
+    x = 0;
+    y = 0;
     maps = TILE_SIZE / 8;
     while (y < map->height)
     {
@@ -43,6 +74,7 @@ void    move(t_game *game, t_player *player, t_pressed_keys *keys)
     int ipy_add_yo;
     int ipy_sub_yo;
 
+
     map = game->map;
     if (player->dirX < 0)
         xo = -20;
@@ -69,10 +101,6 @@ void    move(t_game *game, t_player *player, t_pressed_keys *keys)
             player->y += player->dirY;
     }
 
-    (void) ipy;
-    (void) ipy_sub_yo;
-    (void) ipx_sub_xo;
-
     if (keys->s)
     {
         if (map->tiles[ipy*map->width + ipx_sub_xo] == 0)
@@ -80,17 +108,21 @@ void    move(t_game *game, t_player *player, t_pressed_keys *keys)
         if (map->tiles[ipy_sub_yo * map->width + ipx] == 0)
             player->y -= player->dirY;
     }
-
+    
     if (keys->a)
     {
-        player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
-        player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[ipy*map->width + ipx_add_xo] == 0)
+            player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[ipy_add_yo * map->width + ipx] == 0)
+            player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
     }
 
     if (keys->d)
     {
-        player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
-        player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[ipy*map->width + ipx_add_xo] == 0)
+            player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[ipy_add_yo * map->width + ipx] == 0)
+            player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
     }
 
     if (keys->la)
@@ -125,6 +157,7 @@ int    render_map(t_game *game)
     
     move(game, game->player, game->keys);
 
+    //draw_map(game, game->map);
     draw_rays(game);
     double miniX;
     double miniY;
@@ -132,8 +165,8 @@ int    render_map(t_game *game)
     miniX = game->win_width - (game->win_width / 8);
     miniY = game->win_height / 8;
 
-    draw_map(game, game->map);
-    draw_rect_to_img(game->cast_image, (player->x / 8) + miniX, (player->y / 8) + miniY, (player->x / 8) + (TILE_SIZE / 8) + miniX, (player->y / 8) + (TILE_SIZE / 8) + miniY, 0xffff00, 0);
+    draw_map_mini(game, game->map);
+    draw_rect_to_img(game->cast_image, (player->x / 8) + miniX, (player->y / 8) + miniY, (player->x / 8) + (TILE_SIZE / 16) + miniX, (player->y / 8) + (TILE_SIZE / 16) + miniY, 0xffff00, 0);
 
     put_img_to_img(game->main_image, game->cast_image, 0, 0);
     mlx_put_image_to_window(game->mlx, game->window, game->main_image, 0, 0);
