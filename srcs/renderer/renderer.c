@@ -54,7 +54,7 @@ void    draw_map_mini(t_game *game, t_map *map)
             xo = x * maps + (game->win_width - (game->win_width / 8));
             yo = y * maps + (game->win_height / 8);
 
-            draw_rect_to_img(game->cast_image, xo, yo, xo + maps, yo + maps, color, 0);
+            draw_rect_to_img(game->main_image, xo, yo, xo + maps, yo + maps, color, 0);
             x++;
         }
         x = 0;
@@ -165,10 +165,10 @@ int    render_map(t_game *game)
     miniX = game->win_width - (game->win_width / 8);
     miniY = game->win_height / 8;
 
-    draw_map_mini(game, game->map);
-    draw_rect_to_img(game->cast_image, (player->x / 8) + miniX, (player->y / 8) + miniY, (player->x / 8) + (TILE_SIZE / 16) + miniX, (player->y / 8) + (TILE_SIZE / 16) + miniY, 0xffff00, 0);
-
     put_img_to_img(game->main_image, game->cast_image, 0, 0);
+    draw_map_mini(game, game->map);
+    draw_rect_to_img(game->main_image, (player->x / 8) + miniX, (player->y / 8) + miniY, (player->x / 8) + (TILE_SIZE / 16) + miniX, (player->y / 8) + (TILE_SIZE / 16) + miniY, 0xffff00, 0);
+
     mlx_put_image_to_window(game->mlx, game->window, game->main_image, 0, 0);
     mlx_destroy_image(game->mlx, game->cast_image);
     return 0;

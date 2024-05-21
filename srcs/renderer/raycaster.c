@@ -6,6 +6,7 @@ void    draw_rays(t_game *game)
 	t_player *player;
 	t_map   *map;
 	int i;
+	int cardinal;
 
 	ray = malloc(sizeof(t_raycast));
 	if (!ray)
@@ -19,6 +20,7 @@ void    draw_rays(t_game *game)
 	if (ray->ra > 2 * PI) ray->ra -= 2 * PI;
 
 	i= 0;
+	cardinal = CARDINAL_NS;
 	while (i < PLAYER_FOV)
 	{
 		ray->px = player->x;
@@ -37,21 +39,24 @@ void    draw_rays(t_game *game)
 
 		if (ray->dis_v < ray->dis_h)
 		{
+			cardinal = CARDINAL_WE;
 			ray->rx = ray->vx;
 			ray->ry = ray->vy;
 			ray->dist = ray->dis_v;
-			draw_walls(game, ray, player, i, 0x770000);
+			draw_walls(game, ray, player, i, cardinal);
 		}
 		if (ray->dis_h < ray->dis_v)
 		{
+			cardinal = CARDINAL_NS;
 			ray->rx = ray->hx;
 			ray->ry = ray->hy;
 			ray->dist = ray->dis_h;
-			draw_walls(game, ray, player, i, 0xDD0000);
+			draw_walls(game, ray, player, i, cardinal);
 		}
 
 
 		//draw_line_to_img(game->cast_image, player->x, player->y, ray->rx, ray->ry, 0x77FF0000);
+		
 		ray->ra += DR;
 		if (ray->ra < 0) ray->ra += 2 * PI;
 		if (ray->ra > 2 * PI) ray->ra -= 2 * PI;
@@ -59,7 +64,7 @@ void    draw_rays(t_game *game)
 	}
 }
 
-void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int color)
+void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int cardinal)
 {
 	double lineH;
 	double lineO;
@@ -70,16 +75,55 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int col
 	if (ca > 2 * PI) ca -= 2 * PI;
 	ray->dist *= cos(ca);
 	lineH = (TILE_SIZE * game->win_height) / ray->dist;
-	if (lineH > game->win_height) lineH = game->win_width;
+	double step;
+	double ty_off;
+	step = 32 / lineH;
+	ty_off = 0;
+	if (lineH > game->win_width)
+	{
+		ty_off = (lineH - game->win_width) / 2;
+		lineH = game->win_width;
+	}
 	lineO = game->win_height / 2 - (lineH / 2);
-	
-	(void) lineO;
-	(void) rid;
-	(void) color;
 	double ridM = game->win_width / PLAYER_FOV;
-	(void) ridM;
+
+	int y;
+	double ty;
+	double tx;
+
+	t_img *texture;
+	y = 0;
+	ty = ty_off * step;
+	if (cardinal == CARDINAL_NS)
+	{
+		tx = (int) (ray->rx / 2) % 32;
+		texture = game->assets->north_wall;
+		if (to_degrees(ray->ra) > 180)
+		{
+			tx = 31-tx;
+			texture = game->assets->south_wall;
+
+		}
+	}
+	else
+	{
+		tx = (int) (ray->ry / 2) % 32;
+		texture = game->assets->east_wall;
+		if (to_degrees(ray->ra) > 90 && to_degrees(ray->ra) < 270)
+		{
+			texture = game->assets->west_wall;
+			tx = 31-tx;
+		}
+	}
+
+	while (y < lineH)
+	{
+		put_pixel_img_radius(*game->cast_image, rid * ridM, y + lineO, get_pixel_img(*texture, tx, ty), ridM - 1);
+		//draw_rect_to_img(game->cast_image, rid * ridM - ridM, y + lineO, rid * ridM  + ridM, y + lineO + 1, get_pixel_img(*texture, tx, ty), ridM);
+		y++;
+		ty += step;
+	}
 	//printf("%f\n", ridM);
-	draw_rect_to_img(game->cast_image, rid * ridM - ridM, lineO, rid * ridM + ridM, lineH + lineO, color, ridM);
 	//draw_line_to_img(game->cast_image, rid * ridM, lineO, rid * ridM , lineH + lineO, color);
 }
 

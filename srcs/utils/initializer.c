@@ -31,6 +31,22 @@ void    init_keys(t_game *game)
     game->keys = keys;
 }
 
+void    init_assets(t_game *game)
+{
+    t_assets *assets;
+    int w;
+    int h;
+
+    w = 0;
+    h = 0;
+    assets = malloc(sizeof(assets));
+    assets->north_wall = mlx_xpm_file_to_image(game->mlx, "assets/wall.xpm", &w, &h);
+    assets->south_wall = mlx_xpm_file_to_image(game->mlx, "assets/south_wall.xpm", &w, &h);
+    assets->east_wall = mlx_xpm_file_to_image(game->mlx, "assets/east_wall.xpm", &w, &h);
+    assets->west_wall = mlx_xpm_file_to_image(game->mlx, "assets/west_wall.xpm", &w, &h);
+    game->assets = assets;
+}
+
 int init_game(t_game *game)
 {
     game->mlx = NULL;
@@ -42,6 +58,7 @@ int init_game(t_game *game)
     game->cast_image = NULL;
     game->main_image = NULL;
     init_keys(game);
+    init_assets(game);
 
     if (game->mlx == NULL)
     {

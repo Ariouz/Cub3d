@@ -16,6 +16,9 @@
 # define P3 3 * PI / 2
 # define DR 0.0174533
 
+# define CARDINAL_NS 1
+# define CARDINAL_WE 0
+
 # define PLAYER_SPEED 8
 # define PLAYER_ROTATION_SPEED 0.1
 # define TILE_SIZE 64
@@ -98,6 +101,14 @@ typedef struct s_pressed_keys
     int ra;
 }   t_pressed_keys;
 
+typedef struct s_assets
+{
+    t_img   *north_wall;
+    t_img   *south_wall;
+    t_img   *east_wall;
+    t_img   *west_wall;
+}   t_assets;
+
 typedef struct s_game
 {
     void        *mlx;
@@ -109,6 +120,7 @@ typedef struct s_game
     t_img   *cast_image;
     t_img   *main_image;
     t_pressed_keys *keys;
+    t_assets    *assets;
 }   t_game;
 
 // Parser and Init
@@ -126,11 +138,13 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int col
 unsigned int	get_pixel_img(t_img img, int x, int y);
 int     init_game(t_game *game);
 double  to_radians(double degrees);
+double  to_degrees(double radians);
 double  center_pos(double pos);
 double  dist(float ax, float ay, float bx, float by);
 int     get_player_tile(double player_pos);
 int     get_tile_at(int x, int y, t_map *map);
 void	put_pixel_img(t_img img, int x, int y, int color);
+void	put_pixel_img_radius(t_img img, int x, int y, int color, int thickness);
 void	put_img_to_img(t_img *dst, t_img *src, int x, int y);
 void    draw_line_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color);
 void    draw_rect_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color, int width);

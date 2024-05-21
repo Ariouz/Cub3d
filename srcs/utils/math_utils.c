@@ -5,6 +5,11 @@ double  to_radians(double degrees)
     return (degrees * (PI / 180));
 }
 
+double  to_degrees(double radians)
+{
+    return ((radians * 180) / PI);
+}
+
 int get_player_tile(double player_pos)
 {
     return player_pos / TILE_SIZE;
