@@ -37,7 +37,6 @@ void    draw_rays(t_game *game)
 		check_horizontal(map, ray);
 		check_vertical(map, ray);
 
-		(void) cardinal;
 		if (ray->dis_v < ray->dis_h)
 		{
 			cardinal = CARDINAL_WE;
@@ -55,6 +54,7 @@ void    draw_rays(t_game *game)
 			draw_walls(game, ray, player, i, cardinal);
 		}
 
+		// Afficher rayons
 		//draw_line_to_img(game->cast_image, player->x, player->y, ray->rx, ray->ry, 0x77FF0000);
 
 		ray->ra += to_radians(1);
