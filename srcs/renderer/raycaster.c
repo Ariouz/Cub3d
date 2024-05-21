@@ -15,7 +15,7 @@ void    draw_rays(t_game *game)
 	player = game->player;
 	map = game->map;
 
-	ray->ra = player->angle - DR * 30;
+	ray->ra = player->angle - to_radians(30);
 	if (ray->ra < 0) ray->ra += 2 * PI;
 	if (ray->ra > 2 * PI) ray->ra -= 2 * PI;
 
@@ -37,6 +37,7 @@ void    draw_rays(t_game *game)
 		check_horizontal(map, ray);
 		check_vertical(map, ray);
 
+		(void) cardinal;
 		if (ray->dis_v < ray->dis_h)
 		{
 			cardinal = CARDINAL_WE;
@@ -54,15 +55,15 @@ void    draw_rays(t_game *game)
 			draw_walls(game, ray, player, i, cardinal);
 		}
 
-
 		//draw_line_to_img(game->cast_image, player->x, player->y, ray->rx, ray->ry, 0x77FF0000);
-		
-		ray->ra += DR;
+
+		ray->ra += to_radians(1);
 		if (ray->ra < 0) ray->ra += 2 * PI;
 		if (ray->ra > 2 * PI) ray->ra -= 2 * PI;
 		i++;
 	}
 }
+
 
 void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int cardinal)
 {
@@ -70,7 +71,7 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 	double lineO;
 	double ca;
 
-	ca = player->angle - ray->ra;
+	ca =player->angle - ray->ra;
 	if (ca < 0) ca += 2 * PI;
 	if (ca > 2 * PI) ca -= 2 * PI;
 	ray->dist *= cos(ca);
@@ -79,13 +80,13 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 	double ty_off;
 	step = 32 / lineH;
 	ty_off = 0;
-	if (lineH > game->win_width)
+	if (lineH > game->win_height)
 	{
-		ty_off = (lineH - game->win_width) / 2;
-		lineH = game->win_width;
+		ty_off = (lineH - game->win_height) / 2;
+		lineH = game->win_height;
 	}
 	lineO = game->win_height / 2 - (lineH / 2);
-	double ridM = game->win_width / PLAYER_FOV;
+	double ridM = (double) game->win_width / PLAYER_FOV;
 
 	int y;
 	double ty;
@@ -93,7 +94,7 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 
 	t_img *texture;
 	y = 0;
-	ty = ty_off * step;
+	ty = (int) ty_off * step;
 	if (cardinal == CARDINAL_NS)
 	{
 		tx = (int) (ray->rx / 2) % 32;
@@ -118,13 +119,10 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 
 	while (y < lineH)
 	{
-		put_pixel_img_radius(*game->cast_image, rid * ridM, y + lineO, get_pixel_img(*texture, tx, ty), ridM - 1);
-		//draw_rect_to_img(game->cast_image, rid * ridM - ridM, y + lineO, rid * ridM  + ridM, y + lineO + 1, get_pixel_img(*texture, tx, ty), ridM);
+		put_pixel_img_radius(*game->cast_image,  rid * ridM, y + lineO, get_pixel_img(*texture, tx,  ty), ridM);
 		y++;
 		ty += step;
 	}
-	//printf("%f\n", ridM);
-	//draw_line_to_img(game->cast_image, rid * ridM, lineO, rid * ridM , lineH + lineO, color);
 }
 
 void    check_horizontal(t_map *map, t_raycast *ray)
