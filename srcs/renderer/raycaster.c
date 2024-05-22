@@ -117,11 +117,21 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 		}
 	}
 
+	// texture painting
 	while (y < lineH)
 	{
 		put_pixel_img_radius(*game->cast_image,  rid * ridM, y + lineO, get_pixel_img(*texture, tx,  ty), ridM);
 		y++;
 		ty += step;
+	}
+
+	// floor and ceilling
+	y = lineO + lineH;
+	while (y < game->win_height)
+	{
+		put_pixel_img_radius(*game->cast_image,  rid * ridM, y, game->assets->floor_color, ridM);
+		put_pixel_img_radius(*game->cast_image,  rid * ridM, game->win_height - y - 16, game->assets->ceil_color, ridM);
+		y++;
 	}
 }
 

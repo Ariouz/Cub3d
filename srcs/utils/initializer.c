@@ -44,6 +44,8 @@ void    init_assets(t_game *game)
     assets->south_wall = mlx_xpm_file_to_image(game->mlx, "assets/south_wall.xpm", &w, &h);
     assets->east_wall = mlx_xpm_file_to_image(game->mlx, "assets/east_wall.xpm", &w, &h);
     assets->west_wall = mlx_xpm_file_to_image(game->mlx, "assets/west_wall.xpm", &w, &h);
+    assets->floor_color = 0x444444;
+    assets->ceil_color = 0x777777;
     game->assets = assets;
 }
 
