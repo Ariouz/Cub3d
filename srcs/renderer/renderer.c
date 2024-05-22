@@ -111,18 +111,25 @@ void    move(t_game *game, t_player *player, t_pressed_keys *keys)
     
     if (keys->a)
     {
-        if (map->tiles[ipy*map->width + ipx_add_xo] == 0)
-            player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[ipy_add_yo * map->width + ipx] == 0)
-            player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
+        player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
+            player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
+
+        player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
+            player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
     }
 
     if (keys->d)
     {
-        if (map->tiles[ipy*map->width + ipx_add_xo] == 0)
-            player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[ipy_add_yo * map->width + ipx] == 0)
-            player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
+        player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[(int)((int)(player->y/ TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
+            player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
+
+        player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
+            player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
+
     }
 
     if (keys->la)
@@ -168,7 +175,9 @@ int    render_map(t_game *game)
     put_img_to_img(game->main_image, game->cast_image, 0, 0);
     //draw_map_mini(game, game->map);
     draw_rect_to_img(game->main_image, (player->x / 8) + miniX, (player->y / 8) + miniY, (player->x / 8) + (TILE_SIZE / 16) + miniX, (player->y / 8) + (TILE_SIZE / 16) + miniY, 0xffff00, 0);
-    draw_line_to_img(game->main_image, game->win_width / 2, game->win_height / 2,  game->win_width / 2 + player->dirX * 3, game->win_height / 2 + player->dirY * 3, 0xFFFFFFF);
+
+    draw_line_to_img(game->main_image, game->win_width / 2 - 7, game->win_height / 2, game->win_width / 2 + 7, game->win_height / 2, 0xFFFFFF);
+    draw_line_to_img(game->main_image, game->win_width / 2, game->win_height / 2 - 7, game->win_width / 2, game->win_height / 2 + 7, 0xFFFFFF);
 
     mlx_put_image_to_window(game->mlx, game->window, game->main_image, 0, 0);
     mlx_destroy_image(game->mlx, game->cast_image);

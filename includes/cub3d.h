@@ -115,6 +115,8 @@ typedef struct s_assets
     t_img   *south_wall;
     t_img   *east_wall;
     t_img   *west_wall;
+    int     floor_color;
+    int     ceil_color;
 }   t_assets;
 
 typedef struct s_game
