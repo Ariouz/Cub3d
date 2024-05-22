@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initializer.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/22 16:22:39 by vicalvez          #+#    #+#             */
+/*   Updated: 2024/05/22 17:49:49 by vicalvez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 int init_player(t_game *game)
@@ -12,8 +24,8 @@ int init_player(t_game *game)
     player->angle = to_radians(0);
     player->dirX = cos(player->angle) * PLAYER_SPEED;
     player->dirY = sin(player->angle) * PLAYER_SPEED;
+    player->mouseX = 0;
     game->player = player;
-    ft_printf("Player spawn: %d %d\n", (int) game->player->x, (int) game->player->y);
     return (0);
 }
 
@@ -77,6 +89,8 @@ int init_game(t_game *game)
     init_player(game);
     game->main_image = mlx_new_image(game->mlx, game->win_width, game->win_height);
     game->cast_image = mlx_new_image(game->mlx, game->win_width, game->win_height);
+    mlx_mouse_move(game->mlx, game->window, game->win_height / 2, game->win_height / 2);
+    mlx_mouse_hide(game->mlx, game->window);
     mlx_loop_hook(game->mlx, render_map, game);
     return (0);
 }

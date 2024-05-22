@@ -20,13 +20,16 @@
 # define CARDINAL_WE 0
 
 # define PLAYER_SPEED 8
-# define PLAYER_ROTATION_SPEED 0.1
+# define PLAYER_ROTATION_SPEED 0.12
 # define TILE_SIZE 64
 # define PLAYER_FOV 60
+
+# define MINIMAP_SIDE_LEN 100
 
 # define DESTROY_HOOK 17
 # define KEY_PRESSED_HOOK 2
 # define KEY_RELEASE_HOOK 3
+# define MOUSE_MOVE_HOOK 6
 
 # define KEY_ESCAPE 65307
 # define KEY_W 119
@@ -72,6 +75,7 @@ typedef struct s_player
     double dirX;
     double dirY;
     double angle;
+    int    mouseX;
 }   t_player;
 
 typedef struct s_map_setting
@@ -131,6 +135,8 @@ int read_map(t_map *map);
 
 // Render
 int    render_map(t_game *game);
+void    draw_minimap(t_game *game, t_map *map, t_player *player);
+void    print_coords(t_game *game);
 void    check_horizontal(t_map *map, t_raycast *ray);
 void    check_vertical(t_map *map, t_raycast *ray);
 void    draw_rays(t_game *game);
@@ -158,6 +164,7 @@ void    init_listener(t_game *cub);
 int listen_exit(t_game *cub);
 int listen_key_press(int keycode, t_game *cub);
 int listen_key_release(int keycode, t_game *game);
+int listen_mousemove(int x, int y, t_game *game);
 
 // Cleanup
 void    clean(t_game *game);

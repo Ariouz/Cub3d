@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycaster.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/22 16:22:19 by vicalvez          #+#    #+#             */
+/*   Updated: 2024/05/22 16:22:20 by vicalvez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void    draw_rays(t_game *game)
@@ -55,7 +67,7 @@ void    draw_rays(t_game *game)
 		}
 
 		// Afficher rayons
-		//draw_line_to_img(game->cast_image, player->x, player->y, ray->rx, ray->ry, 0x77FF0000);
+		// draw_line_to_img(game->cast_image, player->x, player->y, ray->rx, ray->ry, 0x77FF0000);
 
 		ray->ra += to_radians(1);
 		if (ray->ra < 0) ray->ra += 2 * PI;
@@ -117,7 +129,7 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 		}
 	}
 
-	// texture painting
+	// wall texture painting
 	while (y < lineH)
 	{
 		put_pixel_img_radius(*game->cast_image,  rid * ridM, y + lineO, get_pixel_img(*texture, tx,  ty), ridM);
@@ -129,7 +141,7 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 	y = lineO + lineH;
 	while (y < game->win_height)
 	{
-		put_pixel_img_radius(*game->cast_image,  rid * ridM, y, game->assets->floor_color, ridM);
+		put_pixel_img_radius(*game->cast_image,  rid * ridM, y + 1, game->assets->floor_color, ridM);
 		put_pixel_img_radius(*game->cast_image,  rid * ridM, game->win_height - y - 16, game->assets->ceil_color, ridM);
 		y++;
 	}
