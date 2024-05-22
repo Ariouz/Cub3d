@@ -2,8 +2,8 @@
 
 void    init_value(t_game *game)
 {
-    game->win_width = 1280;
-    game->win_height = 720;
+    game->win_width = 848;
+    game->win_height = 480;
     game->mlx = NULL;
     game->window = NULL;
     game->map = NULL;

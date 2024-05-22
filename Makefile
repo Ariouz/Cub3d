@@ -15,9 +15,11 @@ utils/draw_utils.c \
 utils/image.c \
 utils/math_utils.c \
 utils/error_msg.c \
+utils/free_utils.c \
 parser/map_init.c \
 parser/map_reader.c \
 parser/map_reader_temp.c \
+parser/get_asset.c \
 renderer/renderer.c \
 renderer/raycaster.c)
 

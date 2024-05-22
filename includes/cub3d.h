@@ -42,10 +42,13 @@
 
 # define PARAMETER_NUMBER_ERROR "This program must take one .cub file\n"
 # define WRONG_FILE_EXTENSION "The map must be a '.cub' file\n"
+# define WRONG_MAP_ARGUMENT "There is a wrong parameter in the map\n"
+# define MULTIPLE_FILE_TO_SAME_TEXTURE "Can't assign multiple file to the same texture\n"
 # define MALLOC_ERROR "malloc allocation failed\n"
 # define MLX_INIT_ERROR "mlx initialisation failed\n"
 # define MLX_WINDOWS_INIT_ERROR "mlx windows initialisation failed\n"
 # define MLX_NEW_IMG_ERROR "mlx new image function failed\n"
+# define MLX_FILE_TO_IMAGE_ERROR "mlx file to image failed\n"
 
 
 typedef struct s_raycast
@@ -137,6 +140,7 @@ typedef struct s_game
 int init_map(t_game *game, char **argv);
 int read_map(t_map *map);
 int read_map_temp(t_game *game, char **argv);
+int get_asset(t_game *game, char **temp_map);
 
 // Render
 int    render_map(t_game *game);
@@ -173,5 +177,6 @@ int listen_key_release(int keycode, t_game *game);
 // Cleanup
 void    clean(t_game *game);
 void    free_map(t_map *map);
+void    free_temp_map(char **map);
 
 #endif
