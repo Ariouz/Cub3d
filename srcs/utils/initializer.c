@@ -53,8 +53,8 @@ int init_game(t_game *game)
     game->window = NULL;
     game->map = NULL;
     game->mlx = mlx_init();
-    game->win_width = 1280;
-    game->win_height = 720;
+    game->win_width = 848;
+    game->win_height = 480;
     game->cast_image = NULL;
     game->main_image = NULL;
     init_keys(game);

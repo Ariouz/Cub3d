@@ -111,18 +111,25 @@ void    move(t_game *game, t_player *player, t_pressed_keys *keys)
     
     if (keys->a)
     {
-        if (map->tiles[ipy*map->width + ipx_add_xo] == 0)
-            player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[ipy_add_yo * map->width + ipx] == 0)
-            player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
+        player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
+            player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
+
+        player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
+            player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
     }
 
     if (keys->d)
     {
-        if (map->tiles[ipy*map->width + ipx_add_xo] == 0)
-            player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[ipy_add_yo * map->width + ipx] == 0)
-            player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
+        player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[(int)((int)(player->y/ TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
+            player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
+
+        player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
+        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
+            player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
+
     }
 
     if (keys->la)
