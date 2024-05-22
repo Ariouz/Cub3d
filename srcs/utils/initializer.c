@@ -39,7 +39,7 @@ void    init_assets(t_game *game)
 
     w = 0;
     h = 0;
-    assets = malloc(sizeof(assets));
+    assets = malloc(sizeof(t_assets));
     assets->north_wall = mlx_xpm_file_to_image(game->mlx, "assets/north_wall.xpm", &w, &h);
     assets->south_wall = mlx_xpm_file_to_image(game->mlx, "assets/south_wall.xpm", &w, &h);
     assets->east_wall = mlx_xpm_file_to_image(game->mlx, "assets/east_wall.xpm", &w, &h);
