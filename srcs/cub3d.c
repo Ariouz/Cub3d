@@ -14,17 +14,14 @@ void    free_map(t_map *map)
     free(map);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-    t_game   *game;
+    t_game   game;
 
-    game = malloc(sizeof(t_game));
-    if (!game)
-        exit(1);
-    if (init_game(game) != 0)
-        exit(1);
-    mlx_loop(game->mlx);
-    free_map(game->map);
-    clean(game);
+    if (init_game(&game, argc - 1, argv + 1) != 0)
+        return (EXIT_FAILURE);
+    mlx_loop((&game)->mlx);
+    free_map((&game)->map);
+    //clean(game);
     return (0);
 }

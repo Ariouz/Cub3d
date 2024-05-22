@@ -14,8 +14,10 @@ utils/initializer.c \
 utils/draw_utils.c \
 utils/image.c \
 utils/math_utils.c \
+utils/error_msg.c \
 parser/map_init.c \
 parser/map_reader.c \
+parser/map_reader_temp.c \
 renderer/renderer.c \
 renderer/raycaster.c)
 
@@ -30,7 +32,7 @@ GNL_DIR= libs/gnl
 
 LIBS= -Iincludes -L$(MLX_DIR) -I$(MLX_DIR) -lmlx -lXext -lX11 -lm -I$(GNL_DIR)
 
-FLAGS= -g -Wall -Werror -Wextra
+FLAGS= -g -Wall #-Werror -Wextra
 
 $(NAME): $(LFT_A) $(OBJS) 
 	gcc $(FLAGS) $(OBJS) $(LFT_A) $(LIBS) -o $(NAME)

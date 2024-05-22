@@ -119,7 +119,7 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 
 	while (y < lineH)
 	{
-		put_pixel_img_radius(*game->cast_image,  rid * ridM, y + lineO, get_pixel_img(*texture, tx,  ty), ridM);
+		put_pixel_img_radius(*game->cast_image,  rid * ridM, y + lineO, get_pixel_img(*texture, tx,  ty), ridM + 1);
 		y++;
 		ty += step;
 	}

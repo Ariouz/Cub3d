@@ -40,6 +40,14 @@
 # define MAP_WALL 1
 # define MAP_AIR 0
 
+# define PARAMETER_NUMBER_ERROR "This program must take one .cub file\n"
+# define WRONG_FILE_EXTENSION "The map must be a '.cub' file\n"
+# define MALLOC_ERROR "malloc allocation failed\n"
+# define MLX_INIT_ERROR "mlx initialisation failed\n"
+# define MLX_WINDOWS_INIT_ERROR "mlx windows initialisation failed\n"
+# define MLX_NEW_IMG_ERROR "mlx new image function failed\n"
+
+
 typedef struct s_raycast
 {
     int r;
@@ -124,8 +132,9 @@ typedef struct s_game
 }   t_game;
 
 // Parser and Init
-int init_map(t_game *game);
+int init_map(t_game *game, char **argv);
 int read_map(t_map *map);
+int read_map_temp(t_game *game, char **argv);
 
 // Render
 int    render_map(t_game *game);
@@ -136,11 +145,13 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int col
 
 // Utils
 unsigned int	get_pixel_img(t_img img, int x, int y);
-int     init_game(t_game *game);
+int     init_game(t_game *game, int argc, char **argv);
 double  to_radians(double degrees);
 double  to_degrees(double radians);
 double  center_pos(double pos);
 double  dist(float ax, float ay, float bx, float by);
+int     error_msg(t_game *game, char *err_msg);
+int     error_open(t_game *game, char *file);
 int     get_player_tile(double player_pos);
 int     get_tile_at(int x, int y, t_map *map);
 void	put_pixel_img(t_img img, int x, int y, int color);
