@@ -23,7 +23,7 @@
 
 # define FOG_COLOR 0x111111
 # define PLAYER_SPEED 12
-# define PLAYER_ROTATION_SPEED 0.12
+# define PLAYER_ROTATION_SPEED 0.2
 # define TILE_SIZE 64
 # define PLAYER_FOV 60
 
