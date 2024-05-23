@@ -43,13 +43,19 @@
 # define PARAMETER_NUMBER_ERROR "This program must take one .cub file\n"
 # define WRONG_FILE_EXTENSION "The map must be a '.cub' file\n"
 # define WRONG_MAP_ARGUMENT "There is a wrong parameter in the map\n"
+# define MISSING_ASSETS "They are some missing assets\n"
 # define MULTIPLE_FILE_TO_SAME_TEXTURE "Can't assign multiple file to the same texture\n"
+# define MULTIPLE_COLOR_TO_SAME_TEXTURE "Can't assign multiple color to the same texture\n"
+# define WRONG_COLOR "The color given in parameter is not valid\n"
+# define WRONG_RGB_VALUE "The RGB value must be between 0 and 255\n"
 # define MALLOC_ERROR "malloc allocation failed\n"
 # define MLX_INIT_ERROR "mlx initialisation failed\n"
 # define MLX_WINDOWS_INIT_ERROR "mlx windows initialisation failed\n"
 # define MLX_NEW_IMG_ERROR "mlx new image function failed\n"
 # define MLX_FILE_TO_IMAGE_ERROR "mlx file to image failed\n"
-
+# define MAP_DESCRIPTION_ERROR "The map description have an incorrect element\n"
+# define MAP_DESCRIPTION_PLAYER_ERROR "The map description must have only one player spawn\n"
+# define MAP_DESCRIPTION_WALL_ERROR "The map description must close by wall\n"
 
 typedef struct s_raycast
 {
@@ -137,10 +143,21 @@ typedef struct s_game
 }   t_game;
 
 // Parser and Init
-int init_map(t_game *game, char **argv);
-int read_map(t_map *map);
-int read_map_temp(t_game *game, char **argv);
-int get_asset(t_game *game, char **temp_map);
+int     init_map(t_game *game, char **argv);
+int     read_map(t_map *map);
+int     read_map_temp(t_game *game, char **argv);
+int     get_asset(t_game *game, char **temp_map);
+int	    get_east_asset(t_game *game, t_assets *assets, char *line);
+int	    get_north_asset(t_game *game, t_assets *assets, char *line);
+int	    get_west_asset(t_game *game, t_assets *assets, char *line);
+int	    get_south_asset(t_game *game, t_assets *assets, char *line);
+int	    get_floor_color(t_game *game, t_assets *assets, char *line);
+int	    get_ceiling_color(t_game *game, t_assets *assets, char *line);
+int	    get_color(t_game *game, int *color, char *line);
+char	**get_map_description(char **map);
+int	    check_map(t_game *game, char **map);
+int	    check_element(t_game *game, char **map);
+int	    check_wall(char **map);
 
 // Render
 int    render_map(t_game *game);

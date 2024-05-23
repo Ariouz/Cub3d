@@ -20,6 +20,17 @@ parser/map_init.c \
 parser/map_reader.c \
 parser/map_reader_temp.c \
 parser/get_asset.c \
+parser/get_ceiling_color.c \
+parser/get_floor_color.c \
+parser/get_east_asset.c \
+parser/get_north_asset.c \
+parser/get_south_asset.c \
+parser/get_west_asset.c \
+parser/get_color.c \
+parser/get_map_description.c \
+parser/check_map.c \
+parser/check_element.c \
+parser/check_wall.c \
 renderer/renderer.c \
 renderer/raycaster.c)
 

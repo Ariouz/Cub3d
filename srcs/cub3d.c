@@ -21,7 +21,7 @@ int main(int argc, char **argv)
     if (init_game(&game, argc - 1, argv + 1) != 0)
         return (EXIT_FAILURE);
     mlx_loop((&game)->mlx);
-    free_map((&game)->map);
+    //free_map((&game)->map);
     //clean(game);
     return (0);
 }

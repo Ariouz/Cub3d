@@ -48,7 +48,7 @@ int    init_keys(t_game *game)
     return (0);
 }
 
-void    init_assets(t_game *game)
+int init_assets(t_game *game)
 {
     t_assets *assets;
     int w;
@@ -66,6 +66,7 @@ void    init_assets(t_game *game)
     assets->floor_color = 0x444444;
     assets->ceil_color = 0x777777;
     game->assets = assets;
+    return (0);
 }
 
 int init_game(t_game *game, int argc, char **argv)
@@ -78,7 +79,7 @@ int init_game(t_game *game, int argc, char **argv)
         return (error_msg(game, MLX_INIT_ERROR));
     if (init_keys(game) != 0)
         return (1);
-    init_assets(game);
+    //init_assets(game);
     if (init_map(game, argv) != 0)
         return (1);
     if (init_player(game) != 0)

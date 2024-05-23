@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:09:17 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/22 18:06:13 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 13:07:50 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int count_line(t_game *game, char *file, size_t *line_count)
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		*(++line_count);
+		++(*line_count);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -80,15 +80,28 @@ char	**get_temp_map(t_game *game, char *file)
 
 int	read_map_temp(t_game *game, char **argv)
 {
-	int		fd;
 	char	**temp_map;
+	char	**map_description;
 
 	if (check_file_extension(argv[0]) == 0)
 		return (error_msg(game, WRONG_FILE_EXTENSION));
 	temp_map = get_temp_map(game, argv[0]);
 	if (temp_map == NULL)
 		return (error_msg(game, MALLOC_ERROR));	
+	for (int i = 0; temp_map[i]; i++) {	// ONLY FOR TEST
+		printf("%s", temp_map[i]);
+	}
+	printf("\n");
 	if (get_asset(game, temp_map) != 0)
+		return (1);
+	map_description = get_map_description(temp_map);
+	if (map_description == NULL)
+		return (error_msg(game, MALLOC_ERROR));
+	printf("map description:\n");
+	for (int i = 0; map_description[i]; i++)
+		printf("%s", map_description[i]);
+	printf("\n");
+	if (check_map(game, map_description) != 0)
 		return (1);
 	return (0);
 }
