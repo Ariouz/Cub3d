@@ -21,8 +21,9 @@
 # define CARDINAL_NS 1
 # define CARDINAL_WE 0
 
-# define PLAYER_SPEED 8
-# define PLAYER_ROTATION_SPEED 0.12
+# define FOG_COLOR 0x111111
+# define PLAYER_SPEED 12
+# define PLAYER_ROTATION_SPEED 0.2
 # define TILE_SIZE 64
 # define PLAYER_FOV 60
 
@@ -34,11 +35,11 @@
 # define MOUSE_MOVE_HOOK 6
 
 # define KEY_ESCAPE 65307
+# define KEY_SPACE 32
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
-
 # define KEY_ARROW_RIGHT 65363
 # define KEY_ARROW_LEFT 65361
 
@@ -61,6 +62,22 @@
 # define MAP_DESCRIPTION_ERROR "The map description have an incorrect element\n"
 # define MAP_DESCRIPTION_PLAYER_ERROR "The map description must have only one player spawn\n"
 # define MAP_DESCRIPTION_WALL_ERROR "The map description must close by wall\n"
+
+typedef struct s_vector
+{
+    double  dx;
+    double  dy;
+    int     ix;
+    int     iy;
+}   t_vector;
+
+
+typedef struct s_color
+{
+    int r;
+    int g;
+    int b;
+}  t_color;
 
 typedef struct s_raycast
 {
@@ -135,6 +152,7 @@ typedef struct s_game
     t_player    *player;
     int win_width;
     int win_height;
+    int mouse_lock;
     t_img   *cast_image;
     t_img   *main_image;
     t_pressed_keys *keys;
@@ -159,17 +177,21 @@ int	    check_wall(char **map);
 int	    get_int_map(t_game *game, char **map);
 
 // Render
-int    render_map(t_game *game);
+int     render_map(t_game *game);
 void    draw_minimap(t_game *game, t_map *map, t_player *player);
 void    print_coords(t_game *game);
+void    show_tooltip(t_game *game);
 void    check_horizontal(t_map *map, t_raycast *ray);
 void    check_vertical(t_map *map, t_raycast *ray);
 void    draw_rays(t_game *game);
 void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int color);
 
 // Utils
+int	get_pixel_color_fog(t_raycast *ray, int color);
 unsigned int	get_pixel_img(t_img img, int x, int y);
+t_color	get_color_struct(int rgb);
 int     init_game(t_game *game, int argc, char **argv);
+int     mix_colors(t_color *c1, t_color *c2, double c2_factor);
 double  to_radians(double degrees);
 double  to_degrees(double radians);
 double  center_pos(double pos);
@@ -179,12 +201,12 @@ int     error_open(t_game *game, char *file);
 int     get_player_tile(double player_pos);
 int     get_tile_at(int x, int y, t_map *map);
 void	put_pixel_img(t_img img, int x, int y, int color);
-void	put_pixel_img_radius(t_img img, int x, int y, int color, int thickness);
+void	put_pixel_img_radius(t_img img, t_vector vec, int color, int thickness);
 void	put_img_to_img(t_img *dst, t_img *src, int x, int y);
-void    draw_line_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color);
-void    draw_rect_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color, int width);
-void    clean(t_game *game);
+void	draw_line_to_img(t_img *img, t_vector v1, t_vector v2, int color);
+void	draw_rect_to_img(t_img *img, t_vector v1, t_vector v2, int color);
 
+t_vector    vector(double x, double y);
 // Managers
 void    init_listener(t_game *cub);
 

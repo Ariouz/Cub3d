@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:23 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 14:24:50 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:24:36 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void    draw_map(t_game *game, t_map *map)
             xo = x * maps;
             yo = y * maps;
 
-            draw_rect_to_img(game->cast_image, xo, yo, xo + maps, yo + maps, color, 0);
+            draw_rect_to_img(game->cast_image, vector(xo, yo), vector(xo + maps, yo + maps), color);
             x++;
         }
         x = 0;
@@ -149,12 +149,13 @@ int    render_map(t_game *game)
     put_img_to_img(game->main_image, game->cast_image, 0, 0);
     draw_minimap(game, game->map, player);
 
-    draw_line_to_img(game->main_image, game->win_width / 2 - 7, game->win_height / 2, game->win_width / 2 + 7, game->win_height / 2, 0xFFFFFF);
-    draw_line_to_img(game->main_image, game->win_width / 2, game->win_height / 2 - 7, game->win_width / 2, game->win_height / 2 + 7, 0xFFFFFF);
+    draw_line_to_img(game->main_image, vector(game->win_width / 2 - 7, game->win_height / 2), vector(game->win_width / 2 + 7, game->win_height / 2), 0xFFFFFF);
+    draw_line_to_img(game->main_image, vector(game->win_width / 2, game->win_height / 2 - 7), vector(game->win_width / 2, game->win_height / 2 + 7), 0xFFFFFF);
 
     mlx_put_image_to_window(game->mlx, game->window, game->main_image, 0, 0);
 
     print_coords(game);
+    show_tooltip(game);
 
     mlx_destroy_image(game->mlx, game->cast_image);
     return 0;

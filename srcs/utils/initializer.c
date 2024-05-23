@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:39 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 16:35:46 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:02:44 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void    init_value(t_game *game)
     game->assets = NULL;
     game->cast_image = NULL;
     game->main_image = NULL;
+    game->mouse_lock = -1;
 }
 
 int init_player(t_game *game)

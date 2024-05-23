@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:31:22 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/22 17:53:31 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:15:27 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,21 @@
 int listen_mousemove(int x, int y, t_game *game)
 {
     (void) game;
+    (void) y;
     t_player *player;
 
-    (void) y;
+    if (game->mouse_lock == -1)
+        return (0);
     player = game->player;
     if (player->mouseX < x)
     {
-        player->angle += PLAYER_ROTATION_SPEED / 3;
+        player->angle += PLAYER_ROTATION_SPEED / 5;
         if (player->angle > 2 * PI)
             player->angle -= 2 * PI;
     }
     else
     {
-        player->angle -= PLAYER_ROTATION_SPEED / 3;
+        player->angle -= PLAYER_ROTATION_SPEED / 5;
         if (player->angle < 0)
             player->angle += 2 * PI;
     }

@@ -1,4 +1,4 @@
-NAME= cub3d
+NAME= cub3D
 
 GNL_SRCS= $(addprefix libs/gnl/, \
 get_next_line.c \
@@ -17,7 +17,12 @@ utils/image.c \
 utils/math_utils.c \
 utils/error_msg.c \
 utils/free_utils.c \
+<<<<<<< HEAD
 utils/clean.c \
+=======
+utils/fog.c \
+utils/vector.c \
+>>>>>>> 6100c37ebfd6bcc57400b5d6c2556163cea9d5b4
 parser/map_init.c \
 parser/map_reader_temp.c \
 parser/get_asset.c \
@@ -35,7 +40,8 @@ parser/check_wall.c \
 parser/get_int_map.c \
 renderer/renderer.c \
 renderer/raycaster.c \
-renderer/minimap.c)
+renderer/minimap.c \
+renderer/tooltip.c)
 
 OBJS= $(SRCS:.c=.o)
 
@@ -48,7 +54,7 @@ GNL_DIR= libs/gnl
 
 LIBS= -Iincludes -L$(MLX_DIR) -I$(MLX_DIR) -lmlx -lXext -lX11 -lm -I$(GNL_DIR)
 
-FLAGS= -g -Wall #-Werror -Wextra
+FLAGS= -g -Wextra -Wall #-Werror -Wextra
 
 $(NAME): $(LFT_A) $(OBJS) 
 	gcc $(FLAGS) $(OBJS) $(LFT_A) $(LIBS) -o $(NAME)

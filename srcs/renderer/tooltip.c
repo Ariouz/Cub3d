@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_msg.c                                        :+:      :+:    :+:   */
+/*   tooltip.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 14:28:59 by gurousta          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/05/23 16:30:37 by gurousta         ###   ########.fr       */
-=======
-/*   Updated: 2024/05/23 16:27:01 by vicalvez         ###   ########.fr       */
->>>>>>> 6100c37ebfd6bcc57400b5d6c2556163cea9d5b4
+/*   Created: 2024/05/23 14:54:06 by vicalvez          #+#    #+#             */
+/*   Updated: 2024/05/23 15:06:02 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
-int	error_open(t_game *game, char *file)
+void    show_tooltip(t_game *game)
 {
-	write(1, "Error\n", 7);
-	perror(file);
-	clean(game);
-	return (1);
-}
+    char *mouse_lock;
 
-int	error_msg(t_game *game, char *err_msg)
-{
-	printf("Error\n%s", err_msg);
-	clean(game);
-	return (1);
+    if (game->mouse_lock == 1)
+        mouse_lock = ft_strdup("Press SPACE to disable mouse lock.");
+    else    
+        mouse_lock = ft_strdup("Press SPACE to enable mouse lock.");
+    mlx_string_put(game->mlx, game->window, game->win_width / 2 - 90, game->win_height - 70, 0xFFFFFF, mouse_lock);
+    free(mouse_lock);
 }

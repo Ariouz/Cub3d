@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:19 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 14:25:12 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:44:55 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,53 +65,15 @@ void    draw_rays(t_game *game)
 			ray->dist = ray->dis_h;
 			draw_walls(game, ray, player, i, cardinal);
 		}
-
-		// Afficher rayons
-		// draw_line_to_img(game->cast_image, player->x, player->y, ray->rx, ray->ry, 0x77FF0000);
-
-		ray->ra += DR * 0.5;
+		ray->ra += DR / 2;
 		if (ray->ra < 0) ray->ra += 2 * PI;
 		if (ray->ra > 2 * PI) ray->ra -= 2 * PI;
 		i++;
 	}
+	free(ray);
 }
 
-int	get_pixel_color_fog(t_raycast *ray, int color)
-{
-	int	fog_color = 0x222222;
-	double	max_distance = 12 * TILE_SIZE;
 
-	double fog_factor = ray->dist / max_distance;
-	if (fog_factor > 1) fog_factor = 1;
-
-	int	pr;
-	int pg;
-	int pb;
-	int fr;
-	int fg;
-	int fb;
-
-	pr = (color >> 16) & 0xFF;
-	pg = (color >> 8) & 0xFF;
-	pb = color & 0xFF;
-
-	fr = (fog_color >> 16) & 0xFF;
-	fg = (fog_color >> 8) & 0xFF;
-	fb = fog_color & 0xFF;
-
-	int r;
-	int g;
-	int b;
-
-	r = pr + fog_factor * (fr - pr);
-	g = pg + fog_factor * (fg - pg);
-	b = pb + fog_factor * (fb - pb);
-
-	int rgb;
-	rgb = (r << 16) | (g << 8) | b;
-	//printf("r: %d, g: %d, b: %d, fog_factor: %f\n", r, g, b, fog_factor);
-	return (rgb);
-}
 
 void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int cardinal)
 {
@@ -145,8 +107,8 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 	y = lineO + lineH;
 	while (y < game->win_height)
 	{
-		put_pixel_img_radius(*game->cast_image,  rid * 8, y, game->assets->floor_color, 8);
-		put_pixel_img_radius(*game->cast_image,  rid * 8, game->win_height - y - 8, game->assets->ceil_color, 8);
+		put_pixel_img_radius(*game->cast_image,  vector(rid * 8, y), game->assets->floor_color, 8);
+		put_pixel_img_radius(*game->cast_image,  vector(rid * 8, game->win_height - y - 8), game->assets->ceil_color, 8);
 		y++;
 	}
 
@@ -178,7 +140,7 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 	while (y < lineH)
 	{
 		//put_pixel_img_radius(*game->cast_image,  rid * 8, y + lineO, get_pixel_img(*texture, tx,  ty), 8);
-		put_pixel_img_radius(*game->cast_image,  rid * 8, y + lineO, get_pixel_color_fog(ray, get_pixel_img(*texture, tx,  ty)), 8);
+		put_pixel_img_radius(*game->cast_image,  vector(rid * 8, y + lineO), get_pixel_color_fog(ray, get_pixel_img(*texture, tx,  ty)), 8);
 		y++;
 		ty += step;
 	}

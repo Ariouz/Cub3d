@@ -21,6 +21,14 @@ int listen_key_press(int keycode, t_game *game)
         keys->la = 1;
     if (keycode == KEY_ARROW_RIGHT)
         keys->ra = 1;
+    if (keycode == KEY_SPACE)
+    {
+        game->mouse_lock = -game->mouse_lock;
+        if (game->mouse_lock)
+            mlx_mouse_hide(game->mlx, game->window);
+        else
+            mlx_mouse_show(game->mlx, game->window);
+    }
 
     return (0);
 }
