@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   initializer.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/22 16:22:39 by vicalvez          #+#    #+#             */
+/*   Updated: 2024/05/23 14:24:41 by vicalvez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 void    init_value(t_game *game)
@@ -26,8 +38,8 @@ int init_player(t_game *game)
     player->angle = to_radians(0);
     player->dirX = cos(player->angle) * PLAYER_SPEED;
     player->dirY = sin(player->angle) * PLAYER_SPEED;
+    player->mouseX = 0;
     game->player = player;
-    ft_printf("Player spawn: %d %d\n", (int) game->player->x, (int) game->player->y);
     return (0);
 }
 

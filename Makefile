@@ -10,6 +10,7 @@ cub3d.c \
 manager/listener_manager.c \
 listener/exit_listener.c \
 listener/key_press_listener.c \
+listener/mouse_listener.c \
 utils/initializer.c \
 utils/draw_utils.c \
 utils/image.c \
@@ -32,7 +33,8 @@ parser/check_map.c \
 parser/check_element.c \
 parser/check_wall.c \
 renderer/renderer.c \
-renderer/raycaster.c)
+renderer/raycaster.c \
+renderer/minimap.c)
 
 OBJS= $(SRCS:.c=.o)
 

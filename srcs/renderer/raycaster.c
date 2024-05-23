@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycaster.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/22 16:22:19 by vicalvez          #+#    #+#             */
+/*   Updated: 2024/05/23 14:25:12 by vicalvez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 void    draw_rays(t_game *game)
@@ -55,7 +67,7 @@ void    draw_rays(t_game *game)
 		}
 
 		// Afficher rayons
-		//draw_line_to_img(game->cast_image, player->x, player->y, ray->rx, ray->ry, 0x77FF0000);
+		// draw_line_to_img(game->cast_image, player->x, player->y, ray->rx, ray->ry, 0x77FF0000);
 
 		ray->ra += DR * 0.5;
 		if (ray->ra < 0) ray->ra += 2 * PI;
@@ -162,7 +174,7 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 		}
 	}
 
-	// texture painting
+	// wall texture painting
 	while (y < lineH)
 	{
 		//put_pixel_img_radius(*game->cast_image,  rid * 8, y + lineO, get_pixel_img(*texture, tx,  ty), 8);
@@ -170,7 +182,6 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 		y++;
 		ty += step;
 	}
-
 	
 }
 
