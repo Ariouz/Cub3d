@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:09:17 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 16:04:37 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:11:07 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ int	read_map_temp(t_game *game, char **argv)
 	if (check_map(game, map_description) != 0)
 		return (1);
 	if (get_int_map(game, map_description) != 0)
+	{
+		free_temp_map(map_description);
 		return (1);
+	}
+	free_temp_map(map_description);
 	return (0);
 }
