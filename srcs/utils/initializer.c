@@ -6,19 +6,33 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:39 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/22 17:49:49 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:24:41 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+void    init_value(t_game *game)
+{
+    game->win_width = 960;
+    game->win_height = 640;
+    game->mlx = NULL;
+    game->window = NULL;
+    game->map = NULL;
+    game->player = NULL;
+    game->keys = NULL;
+    game->assets = NULL;
+    game->cast_image = NULL;
+    game->main_image = NULL;
+}
+
 int init_player(t_game *game)
 {
     t_player    *player;
 
-    player = malloc(sizeof(t_player));
-    if (!player)
-        return (1);
+    player = ft_calloc(1, sizeof(t_player));
+    if (player == NULL)
+        return (error_msg(game, MALLOC_ERROR));
     player->x = center_pos(game->map->player_x * TILE_SIZE);
     player->y = center_pos(game->map->player_y * TILE_SIZE);
     player->angle = to_radians(0);
@@ -29,11 +43,13 @@ int init_player(t_game *game)
     return (0);
 }
 
-void    init_keys(t_game *game)
+int    init_keys(t_game *game)
 {
     t_pressed_keys *keys;
 
-    keys = malloc(sizeof(t_pressed_keys));
+    keys = ft_calloc(1, sizeof(t_pressed_keys));
+    if (keys == NULL)
+        return (error_msg(game, MALLOC_ERROR));
     keys->w = 0;
     keys->a = 0;
     keys->s = 0;
@@ -41,6 +57,7 @@ void    init_keys(t_game *game)
     keys->la = 0;
     keys->ra = 0;
     game->keys = keys;
+    return (0);
 }
 
 void    init_assets(t_game *game)
@@ -51,46 +68,43 @@ void    init_assets(t_game *game)
 
     w = 0;
     h = 0;
-    assets = malloc(sizeof(t_assets));
+    assets = ft_calloc(1, sizeof(t_assets));
+    if (assets == NULL)
+        return (error_msg(game, MALLOC_ERROR));    
     assets->north_wall = mlx_xpm_file_to_image(game->mlx, "assets/north_wall.xpm", &w, &h);
     assets->south_wall = mlx_xpm_file_to_image(game->mlx, "assets/south_wall.xpm", &w, &h);
     assets->east_wall = mlx_xpm_file_to_image(game->mlx, "assets/east_wall.xpm", &w, &h);
     assets->west_wall = mlx_xpm_file_to_image(game->mlx, "assets/west_wall.xpm", &w, &h);
-    assets->floor_color = 0x444444;
-    assets->ceil_color = 0x777777;
+    assets->floor_color = 0x114411;
+    assets->ceil_color = 0x004477;
     game->assets = assets;
 }
 
-int init_game(t_game *game)
+int init_game(t_game *game, int argc, char **argv)
 {
-    game->mlx = NULL;
-    game->window = NULL;
-    game->map = NULL;
+    if (argc != 1)
+        return (error_msg(game, PARAMETER_NUMBER_ERROR));
+    init_value(game);
     game->mlx = mlx_init();
-    game->win_width = 848;
-    game->win_height = 480;
-    game->cast_image = NULL;
-    game->main_image = NULL;
-    init_keys(game);
-    init_assets(game);
-
     if (game->mlx == NULL)
-    {
-        free(game);
+        return (error_msg(game, MLX_INIT_ERROR));
+    if (init_keys(game) != 0)
         return (1);
-    }
-    game->window = mlx_new_window(game->mlx, game->win_width, game->win_height, "cub3d");
-    init_listener(game);
-    if (init_map(game) != 0)
-    {
-        clean(game);
+    init_assets(game);
+    if (init_map(game, argv) != 0)
         return (1);
-    }
-    init_player(game);
+    if (init_player(game) != 0)
+        return (1);
     game->main_image = mlx_new_image(game->mlx, game->win_width, game->win_height);
+    if (game->main_image == NULL)
+        return (error_msg(game, MLX_NEW_IMG_ERROR));
     game->cast_image = mlx_new_image(game->mlx, game->win_width, game->win_height);
-    mlx_mouse_move(game->mlx, game->window, game->win_height / 2, game->win_height / 2);
-    mlx_mouse_hide(game->mlx, game->window);
+    if (game->cast_image == NULL)
+        return (error_msg(game, MLX_NEW_IMG_ERROR));
+    game->window = mlx_new_window(game->mlx, game->win_width, game->win_height, "cub3d");
+    if (game->window == NULL)
+        return (error_msg(game, MLX_WINDOWS_INIT_ERROR));
+    init_listener(game);
     mlx_loop_hook(game->mlx, render_map, game);
     return (0);
 }
