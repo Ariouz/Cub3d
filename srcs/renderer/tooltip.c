@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_init.c                                         :+:      :+:    :+:   */
+/*   tooltip.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 16:22:26 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 15:00:59 by vicalvez         ###   ########.fr       */
+/*   Created: 2024/05/23 14:54:06 by vicalvez          #+#    #+#             */
+/*   Updated: 2024/05/23 15:06:02 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "cub3d.h"
 
-int init_map(t_game *game, char **argv)
+void    show_tooltip(t_game *game)
 {
-    t_map   *map;   
+    char *mouse_lock;
 
-    map = ft_calloc(1, sizeof(t_map));
-    if (map == NULL)
-        return (error_msg(game, MALLOC_ERROR));
-    map->height = 0;
-    map->player_x = 0;
-    map->player_y = 0;
-    map->tiles = NULL;
-    map->setting = NULL;
-    game->map = map;
-    if (read_map(game->map) != 0)
-        return (1);
-    return (0);
+    if (game->mouse_lock == 1)
+        mouse_lock = ft_strdup("Press SPACE to disable mouse lock.");
+    else    
+        mouse_lock = ft_strdup("Press SPACE to enable mouse lock.");
+    mlx_string_put(game->mlx, game->window, game->win_width / 2 - 90, game->win_height - 70, 0xFFFFFF, mouse_lock);
+    free(mouse_lock);
 }

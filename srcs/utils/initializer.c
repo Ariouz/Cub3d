@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:39 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 14:24:41 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:00:25 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void    init_value(t_game *game)
     game->assets = NULL;
     game->cast_image = NULL;
     game->main_image = NULL;
+    game->mouse_lock = -1;
 }
 
 int init_player(t_game *game)
@@ -91,7 +92,7 @@ int init_game(t_game *game, int argc, char **argv)
         return (error_msg(game, MLX_INIT_ERROR));
     if (init_keys(game) != 0)
         return (1);
-    //init_assets(game);
+    init_assets(game);
     if (init_map(game, argv) != 0)
         return (1);
     if (init_player(game) != 0)

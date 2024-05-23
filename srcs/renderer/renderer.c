@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:23 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 14:24:50 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:53:16 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ int    render_map(t_game *game)
     mlx_put_image_to_window(game->mlx, game->window, game->main_image, 0, 0);
 
     print_coords(game);
+    show_tooltip(game);
 
     mlx_destroy_image(game->mlx, game->cast_image);
     return 0;

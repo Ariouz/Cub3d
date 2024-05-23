@@ -1,4 +1,4 @@
-NAME= cub3d
+NAME= cub3D
 
 GNL_SRCS= $(addprefix libs/gnl/, \
 get_next_line.c \
@@ -17,6 +17,7 @@ utils/image.c \
 utils/math_utils.c \
 utils/error_msg.c \
 utils/free_utils.c \
+utils/fog.c \
 parser/map_init.c \
 parser/map_reader.c \
 parser/map_reader_temp.c \
@@ -34,7 +35,8 @@ parser/check_element.c \
 parser/check_wall.c \
 renderer/renderer.c \
 renderer/raycaster.c \
-renderer/minimap.c)
+renderer/minimap.c \
+renderer/tooltip.c)
 
 OBJS= $(SRCS:.c=.o)
 

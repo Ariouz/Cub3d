@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:08 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/22 17:29:45 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:11:51 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void    print_coords(t_game *game)
     char *x;
     char *y;
     char *coords;
+    char *facing;
+    int da;
 
     x = ft_strjoin("x: ", ft_itoa(game->player->x));
     y = ft_strjoin(x, " y: ");
@@ -25,6 +27,22 @@ void    print_coords(t_game *game)
     free(y);
     mlx_string_put(game->mlx, game->window, game->win_width - MINIMAP_SIDE_LEN - 10, MINIMAP_SIDE_LEN + 25, 0xFFFFFF, coords);
     free(coords);
+
+    da = to_degrees(game->player->angle);
+    if (da >= 315 || (da >= 0 && da <= 45))
+        facing = ft_strdup("Facing: East");
+    else if (da > 45 && da <= 135)
+        facing = ft_strdup("Facing: South");
+    else if (da > 135 && da <= 225)
+        facing = ft_strdup("Facing: West");
+    else
+        facing = ft_strdup("Facing: North");
+    
+    if (facing)
+    {
+        mlx_string_put(game->mlx, game->window, game->win_width - MINIMAP_SIDE_LEN - 10, MINIMAP_SIDE_LEN + 40, 0xFFFFFF, facing);
+        free(facing);
+    }
 }
 
 void    draw_minimap(t_game *game, t_map *map, t_player *player)
