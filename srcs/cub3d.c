@@ -1,18 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/23 17:25:16 by gurousta          #+#    #+#             */
+/*   Updated: 2024/05/23 17:25:17 by gurousta         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
-
-void    clean(t_game *game)
-{
-    mlx_destroy_window(game->mlx, game->window);
-    mlx_destroy_display(game->mlx);
-    free(game->mlx);
-    free(game);
-}
-
-void    free_map(t_map *map)
-{
-    free(map->tiles);
-    free(map);
-}
 
 int main(int argc, char **argv)
 {
@@ -21,7 +19,6 @@ int main(int argc, char **argv)
     if (init_game(&game, argc - 1, argv + 1) != 0)
         return (EXIT_FAILURE);
     mlx_loop((&game)->mlx);
-    //free_map((&game)->map);
-    //clean(game);
+    clean(&game);
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:41:38 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 16:10:43 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:26:48 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,42 +35,48 @@ void	get_size_malloc(t_game *game, char **map)
 	game->map->size = game->map->height * game->map->width;
 }
 
+int	*get_int_map2(t_game *game, char **map, int *tiles, t_save_line save)
+{
+	while (map[++save.rows])
+	{
+		save.cols = 0;
+		while (map[save.rows][save.cols] != '\0'
+			&& map[save.rows][save.cols] != '\n')
+		{
+			if (ft_isalpha(map[save.rows][save.cols]))
+			{
+				game->map->player_x = save.cols;
+				game->map->player_y = save.rows;
+				tiles[save.index++] = 0;
+			}
+			else if (map[save.rows][save.cols] == ' ')
+				tiles[save.index++] = 0;
+			else
+				tiles[save.index++] = map[save.rows][save.cols] - '0';
+			++save.cols;
+		}
+		while (save.cols < game->map->width)
+		{
+			tiles[save.index++] = 0;
+			++save.cols;
+		}
+	}
+	return (tiles);
+}
+
 int	get_int_map(t_game *game, char **map)
 {
-	int	*tiles;
-	int	index;
-	int	rows;
-	int	cols;
-	
-	rows = -1;
-	index = 0;
+	int			*tiles;
+	t_save_line	save;
+
+	tiles = NULL;
+	save.cols = 0;
+	save.index = 0;
+	save.rows = -1;
 	get_size_malloc(game, map);
 	tiles = ft_calloc(game->map->size + 1, sizeof(int *));
 	if (tiles == NULL)
 		return (error_msg(game, MALLOC_ERROR));
-	while (map[++rows])
-	{
-		cols = 0;
-		while (map[rows][cols] != '\0' && map[rows][cols] != '\n')
-		{
-			if (ft_isalpha(map[rows][cols]))
-			{
-				game->map->player_x = cols;
-				game->map->player_y = rows;
-				tiles[index++] = 0;
-			}
-			else if (map[rows][cols] == ' ')
-				tiles[index++] = 0;
-			else
-				tiles[index++] = map[rows][cols] - '0';
-			++cols;
-		}
-		while (cols < game->map->width)
-		{
-			tiles[index++] = 0;
-			++cols;
-		}
-	}
-    game->map->tiles = tiles;
+	game->map->tiles = get_int_map2(game, map, tiles, save);
 	return (0);
 }

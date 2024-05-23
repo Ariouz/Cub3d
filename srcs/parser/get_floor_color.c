@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:32:28 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 16:03:51 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:56:06 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	get_floor_color(t_game *game, t_assets *assets, char *line)
 {
 	size_t	index;
-	
+
 	index = 1;
 	if (assets->floor_color != -1)
 		return (error_msg(game, MULTIPLE_COLOR_TO_SAME_TEXTURE));

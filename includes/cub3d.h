@@ -64,6 +64,13 @@
 # define MAP_DESCRIPTION_PLAYER_ERROR "The map description must have only one player spawn\n"
 # define MAP_DESCRIPTION_WALL_ERROR "The map description must close by wall\n"
 
+typedef struct s_save_line
+{
+    int rows;
+    int cols;
+    int index;
+}   t_save_line;
+
 typedef struct s_vector
 {
     double  dx;
@@ -115,13 +122,6 @@ typedef struct s_player
     int    mouseX;
 }   t_player;
 
-typedef struct s_map_setting
-{
-    int height;
-    int width;
-    int size;
-}   t_map_setting;
-
 typedef struct s_map
 {
     int *tiles;
@@ -130,7 +130,6 @@ typedef struct s_map
     int player_x;
     int player_y;
     int size;
-    t_map_setting *setting;
 }  t_map;
 
 typedef struct s_pressed_keys
@@ -170,7 +169,6 @@ typedef struct s_game
 
 // Parser and Init
 int     init_map(t_game *game, char **argv);
-int     read_map(t_map *map);
 int     read_map_temp(t_game *game, char **argv);
 int     get_asset(t_game *game, char **temp_map);
 int	    get_east_asset(t_game *game, t_assets *assets, char *line);
@@ -235,6 +233,7 @@ int listen_mousemove(int x, int y, t_game *game);
 
 // Cleanup
 void    clean(t_game *game);
+void    free_assets(t_game *game);
 void    free_map(t_map *map);
 void    free_temp_map(char **map);
 

@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:17:59 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 13:29:23 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:03:02 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,8 @@ int	check_wall(char **map)
 			if (check_first_last_rows(map[rows]) != 0)
 				return (1);
 		}
-		else if (check_first_last_cols(map[rows]) != 0 || check_space_wall(map, rows) != 0)
+		else if (check_first_last_cols(map[rows]) != 0
+			|| check_space_wall(map, rows) != 0)
 			return (1);
 		++rows;
 	}
