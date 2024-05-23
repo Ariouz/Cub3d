@@ -6,13 +6,13 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 09:52:06 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 11:35:26 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:01:33 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static size_t get_size_map(char **map, size_t index)
+static size_t	get_size_map(char **map, size_t index)
 {
 	size_t	count;
 

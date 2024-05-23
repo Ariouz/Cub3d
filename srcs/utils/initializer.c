@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:39 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 17:02:44 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:31:13 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int init_player(t_game *game)
 {
     t_player    *player;
 
+    player = NULL;
     player = ft_calloc(1, sizeof(t_player));
     if (player == NULL)
         return (error_msg(game, MALLOC_ERROR));
@@ -48,6 +49,7 @@ int    init_keys(t_game *game)
 {
     t_pressed_keys *keys;
 
+    keys = NULL;
     keys = ft_calloc(1, sizeof(t_pressed_keys));
     if (keys == NULL)
         return (error_msg(game, MALLOC_ERROR));
@@ -63,9 +65,9 @@ int    init_keys(t_game *game)
 
 int init_game(t_game *game, int argc, char **argv)
 {
+    init_value(game);
     if (argc != 1)
         return (error_msg(game, PARAMETER_NUMBER_ERROR));
-    init_value(game);
     game->mlx = mlx_init();
     if (game->mlx == NULL)
         return (error_msg(game, MLX_INIT_ERROR));

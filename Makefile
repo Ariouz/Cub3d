@@ -17,12 +17,9 @@ utils/image.c \
 utils/math_utils.c \
 utils/error_msg.c \
 utils/free_utils.c \
-<<<<<<< HEAD
 utils/clean.c \
-=======
 utils/fog.c \
 utils/vector.c \
->>>>>>> 6100c37ebfd6bcc57400b5d6c2556163cea9d5b4
 parser/map_init.c \
 parser/map_reader_temp.c \
 parser/get_asset.c \

@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 12:17:11 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 12:17:40 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:02:03 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int	compare_element(char c, int *position_found)
 {
-	if (c != '1' && c != '0' && c != 'N' && c != 'S' && c != 'E' && c != 'W' && c != ' ')
+	if (c != '1' && c != '0' && c != 'N'
+		&& c != 'S' && c != 'E' && c != 'W' && c != ' ')
 		return (1);
 	else if (c == 'S' || c == 'N' || c == 'E' || c == 'W')
 		++(*position_found);

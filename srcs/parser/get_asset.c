@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:56:30 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 16:02:19 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:55:34 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ static int	check_line(t_game *game, t_assets *assets, char *line)
 		return (0);
 	else if (ft_strncmp(line, " ", 1) == 0 || ft_strncmp(line, "1", 1) == 0
 		|| ft_strncmp(line, "0", 1) == 0)
-		return (0); 
-	else 
+		return (0);
+	else
 		return (error_msg(game, WRONG_MAP_ARGUMENT));
 	return (0);
 }
@@ -76,17 +76,18 @@ int	get_asset(t_game *game, char **temp_map)
 		free_temp_map(temp_map);
 		return (error_msg(game, MALLOC_ERROR));
 	}
+	game->assets = assets;
 	assets->floor_color = -1;
 	assets->ceil_color = -1;
 	while (temp_map[index])
 	{
 		if (check_line(game, assets, temp_map[index++]) != 0)
 		{
+			free_assets(game);
 			free_temp_map(temp_map);
 			return (1);
 		}
 	}
-	game->assets = assets;
 	if (check_asset(game->assets) != 0)
 		return (error_msg(game, MISSING_ASSETS));
 	return (0);

@@ -6,11 +6,32 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 16:29:23 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 16:59:37 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:32:49 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	free_assets(t_game *game)
+{
+	if (game->assets != NULL)
+	{
+		if (game->assets->east_wall != NULL)
+			mlx_destroy_image(game->mlx, game->assets->east_wall);
+		game->assets->east_wall = NULL;
+		if (game->assets->north_wall != NULL)
+			mlx_destroy_image(game->mlx, game->assets->north_wall);
+		game->assets->north_wall = NULL;
+		if (game->assets->south_wall != NULL)
+			mlx_destroy_image(game->mlx, game->assets->south_wall);
+		game->assets->north_wall = NULL;
+		if (game->assets->west_wall != NULL)
+			mlx_destroy_image(game->mlx, game->assets->west_wall);
+		game->assets->west_wall = NULL;
+		free(game->assets);
+	}
+	game->assets = NULL;
+}
 
 void	free_struct_map(t_map *map)
 {
@@ -31,23 +52,7 @@ void	clean(t_game *game)
 	if (game->player != NULL)
 		free(game->player);
 	game->player = NULL;
-	if (game->assets != NULL)
-	{
-		if (game->assets->east_wall != NULL)
-			mlx_destroy_image(game->mlx, game->assets->east_wall);
-		game->assets->east_wall = NULL;
-		if (game->assets->north_wall != NULL)
-			mlx_destroy_image(game->mlx, game->assets->north_wall);
-		game->assets->north_wall = NULL;
-		if (game->assets->south_wall != NULL)
-			mlx_destroy_image(game->mlx, game->assets->south_wall);
-		game->assets->north_wall = NULL;
-		if (game->assets->west_wall != NULL)
-			mlx_destroy_image(game->mlx, game->assets->west_wall);
-		game->assets->west_wall = NULL;
-		free(game->assets);
-	}
-	game->assets = NULL;
+	free_assets(game);
 	if (game->main_image != NULL)
 		mlx_destroy_image(game->mlx, game->main_image);
 	game->main_image = NULL;
@@ -56,6 +61,9 @@ void	clean(t_game *game)
 	game->cast_image = NULL;
 	if (game->mlx != NULL)
 	{
+		if (game->window != NULL)
+			mlx_destroy_window(game->mlx, game->window);
+		game->window = NULL;
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}

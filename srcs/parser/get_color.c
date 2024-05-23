@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:44:23 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 14:13:43 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:00:26 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static int	get_color_value(t_game *game, char *line, size_t *index, int *color)
 	size_t	index_temp;
 
 	index_temp = *index;
-	while (line[index_temp] && line[index_temp] != ',' && line[index_temp] != '\n')
+	while (line[index_temp]
+		&& line[index_temp] != ',' && line[index_temp] != '\n')
 		++index_temp;
 	temp = ft_calloc(index_temp - *index + 1, sizeof(char));
 	if (temp == NULL)
@@ -72,6 +73,6 @@ int	get_color(t_game *game, int *color, char *line)
 		return (1);
 	if (get_color_value(game, line, &index, &blue) != 0)
 		return (1);
-	*color = 256*256*red + 256*green + blue;
+	*color = 256 * 256 * red + 256 * green + blue;
 	return (0);
 }

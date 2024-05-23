@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   renderer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:23 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 16:24:36 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:23:02 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ int    render_map(t_game *game)
 
     player = game->player;
 
-    game->cast_image = mlx_new_image(game->mlx, game->win_width, game->win_height);
     
     move(game, game->player, game->keys);
 
@@ -157,6 +156,5 @@ int    render_map(t_game *game)
     print_coords(game);
     show_tooltip(game);
 
-    mlx_destroy_image(game->mlx, game->cast_image);
     return 0;
 }
