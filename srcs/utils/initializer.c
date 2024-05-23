@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initializer.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:39 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 20:07:50 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 21:36:45 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ int	init_player(t_game *game)
 	player->x = center_pos(game->map->player_x * TL_S);
 	player->y = center_pos(game->map->player_y * TL_S);
 	player->angle = to_radians(game->spawn_angle);
-	player->dirX = cos(player->angle) * PLAYER_SPEED;
-	player->dirY = sin(player->angle) * PLAYER_SPEED;
-	player->mouseX = 0;
+	player->dirx = cos(player->angle) * PLAYER_SPEED;
+	player->diry = sin(player->angle) * PLAYER_SPEED;
+	player->mousex = 0;
 	game->player = player;
 	return (0);
 }

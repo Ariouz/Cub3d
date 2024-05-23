@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 19:54:09 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 20:02:53 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 21:36:46 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
 # include <stddef.h>
 
 # define PI 3.1415926535
-# define P2 PI / 2
-# define P3 3 * PI / 2
+# define P2 1.570796326794897
+# define P3 4.712388980384691
 # define DR 0.0174533
 
 # define CARDINAL_NS 1
@@ -126,10 +126,10 @@ typedef struct s_player
 {
 	double	x;
 	double	y;
-	double	dirX;
-	double	dirY;
+	double	dirx;
+	double	diry;
 	double	angle;
-	int		mouseX;
+	int		mousex;
 }	t_player;
 
 typedef struct s_map
