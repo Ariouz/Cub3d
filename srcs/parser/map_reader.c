@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_reader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:29 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/22 16:22:30 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:27:01 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_map_setting *read_map_settings(int fd)
     return (setting);
 }
 
-void print_map(t_map *map)
+/*void print_map(t_map *map)
 {
     int i;
     
@@ -71,7 +71,7 @@ void print_map(t_map *map)
             printf("\n");
         i++;
     }
-}
+}*/
 
 int read_map(t_map *map)
 {

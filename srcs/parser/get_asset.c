@@ -6,13 +6,13 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:56:30 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 14:14:23 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:02:19 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	print_test(t_game *game)
+/*static void	print_test(t_game *game)
 {
 	printf("Debut du test\n");
 	printf("floor color: %d\n", game->assets->floor_color);
@@ -23,7 +23,7 @@ static void	print_test(t_game *game)
 	printf("south ptr: %p\n", game->assets->south_wall);
 	printf("Fin du test\n");
 	return ;
-}
+}*/
 
 static int	check_asset(t_assets *assets)
 {
@@ -89,6 +89,5 @@ int	get_asset(t_game *game, char **temp_map)
 	game->assets = assets;
 	if (check_asset(game->assets) != 0)
 		return (error_msg(game, MISSING_ASSETS));
-	print_test(game);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:26 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/22 16:22:54 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 15:17:45 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int init_map(t_game *game, char **argv)
     map->height = 0;
     map->player_x = 0;
     map->player_y = 0;
+    map->size = 0;
     map->tiles = NULL;
     map->setting = NULL;
     game->map = map;
