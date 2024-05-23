@@ -74,7 +74,6 @@ void    move(t_game *game, t_player *player, t_pressed_keys *keys)
     int ipy_add_yo;
     int ipy_sub_yo;
 
-
     map = game->map;
     if (player->dirX < 0)
         xo = -20;
