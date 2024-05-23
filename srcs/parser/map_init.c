@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:26 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 15:17:45 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:25:25 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int init_map(t_game *game, char **argv)
     map->player_y = 0;
     map->size = 0;
     map->tiles = NULL;
-    map->setting = NULL;
     game->map = map;
     if (read_map_temp(game, argv) != 0)
         return (1);

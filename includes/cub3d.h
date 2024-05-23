@@ -97,13 +97,6 @@ typedef struct s_player
     int    mouseX;
 }   t_player;
 
-typedef struct s_map_setting
-{
-    int height;
-    int width;
-    int size;
-}   t_map_setting;
-
 typedef struct s_map
 {
     int *tiles;
@@ -112,7 +105,6 @@ typedef struct s_map
     int player_x;
     int player_y;
     int size;
-    t_map_setting *setting;
 }  t_map;
 
 typedef struct s_pressed_keys
@@ -151,7 +143,6 @@ typedef struct s_game
 
 // Parser and Init
 int     init_map(t_game *game, char **argv);
-int     read_map(t_map *map);
 int     read_map_temp(t_game *game, char **argv);
 int     get_asset(t_game *game, char **temp_map);
 int	    get_east_asset(t_game *game, t_assets *assets, char *line);
@@ -192,6 +183,7 @@ void	put_pixel_img_radius(t_img img, int x, int y, int color, int thickness);
 void	put_img_to_img(t_img *dst, t_img *src, int x, int y);
 void    draw_line_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color);
 void    draw_rect_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color, int width);
+void    clean(t_game *game);
 
 // Managers
 void    init_listener(t_game *cub);

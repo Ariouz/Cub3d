@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:39 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 16:11:55 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:35:46 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,27 +60,6 @@ int    init_keys(t_game *game)
     return (0);
 }
 
-int init_assets(t_game *game)
-{
-    t_assets *assets;
-    int w;
-    int h;
-
-    w = 0;
-    h = 0;
-    assets = ft_calloc(1, sizeof(t_assets));
-    if (assets == NULL)
-        return (error_msg(game, MALLOC_ERROR));    
-    assets->north_wall = mlx_xpm_file_to_image(game->mlx, "assets/north_wall.xpm", &w, &h);
-    assets->south_wall = mlx_xpm_file_to_image(game->mlx, "assets/south_wall.xpm", &w, &h);
-    assets->east_wall = mlx_xpm_file_to_image(game->mlx, "assets/east_wall.xpm", &w, &h);
-    assets->west_wall = mlx_xpm_file_to_image(game->mlx, "assets/west_wall.xpm", &w, &h);
-    assets->floor_color = 0x114411;
-    assets->ceil_color = 0x004477;
-    game->assets = assets;
-    return (0);
-}
-
 int init_game(t_game *game, int argc, char **argv)
 {
     if (argc != 1)
@@ -91,7 +70,6 @@ int init_game(t_game *game, int argc, char **argv)
         return (error_msg(game, MLX_INIT_ERROR));
     if (init_keys(game) != 0)
         return (1);
-    //init_assets(game);
     if (init_map(game, argv) != 0)
         return (1);
     if (init_player(game) != 0)

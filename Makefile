@@ -17,8 +17,8 @@ utils/image.c \
 utils/math_utils.c \
 utils/error_msg.c \
 utils/free_utils.c \
+utils/clean.c \
 parser/map_init.c \
-parser/map_reader.c \
 parser/map_reader_temp.c \
 parser/get_asset.c \
 parser/get_ceiling_color.c \
