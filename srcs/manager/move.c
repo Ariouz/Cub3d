@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:29:29 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 18:52:35 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:01:08 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,5 @@ void	move(t_game *game, t_player *pl, t_pressed_keys *keys)
 		move_frontward(map, pl, add_vec, i_vec);
 	if (keys->s)
 		move_backward(map, pl, sub_vec, i_vec);
-	move_player(map, keys, pl);
+	move_player(keys, map, pl);
 }

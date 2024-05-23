@@ -6,67 +6,58 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:23 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 18:53:19 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:57:12 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void    draw_map(t_game *game, t_map *map)
+void	draw_map(t_game *game, t_map *map)
 {
-    int x;
-    int y;
-    int xo;
-    int yo;
-    int color;
-    int maps;
-    
-    x = 0;
-    y = 0;
-    maps = TL_S;
-    while (y < map->height)
-    {
-        while (x < map->width)
-        {
-            if (get_tile_at(x, y, map) == MAP_WALL)
-                color = 0x111111;
-            else
-                color = 0x777777;
-            xo = x * maps;
-            yo = y * maps;
+	t_vector	vec;
+	int			xo;
+	int			yo;
+	int			color;
+	int			maps;
 
-            draw_rect_to_img(game->cast_image, vector(xo, yo), vector(xo + maps, yo + maps), color);
-            x++;
-        }
-        x = 0;
-        y++;
-    }
+	vec = vector(0, 0);
+	maps = TL_S;
+	while (vec.iy < map->height)
+	{
+		while (vec.ix < map->width)
+		{
+			if (get_tile_at(vec.ix, vec.iy, map) == MAP_WALL)
+				color = 0x111111;
+			else
+				color = 0x777777;
+			xo = vec.ix * maps;
+			yo = vec.iy * maps;
+			draw_rect_to_img(game->cast_image, vector(xo, yo),
+				vector(xo + maps, yo + maps), color);
+			vec.ix++;
+		}
+		vec.ix = 0;
+		vec.iy++;
+	}
 }
 
-int    render_map(t_game *game)
+int	render_map(t_game *game)
 {
-    //int *tiles = game->map->tiles;
-    t_player    *player;
+	t_player	*player;
 
-    player = game->player;
-
-    
-    move(game, game->player, game->keys);
-
-    //draw_map(game, game->map);
-    draw_rays(game);
-
-
-    put_img_to_img(game->main_image, game->cast_image, 0, 0);
-    draw_minimap(game, game->map, player);
-
-    draw_line_to_img(game->main_image, vector(game->win_width / 2 - 7, game->win_height / 2), vector(game->win_width / 2 + 7, game->win_height / 2), 0xFFFFFF);
-    draw_line_to_img(game->main_image, vector(game->win_width / 2, game->win_height / 2 - 7), vector(game->win_width / 2, game->win_height / 2 + 7), 0xFFFFFF);
-
-    mlx_put_image_to_window(game->mlx, game->window, game->main_image, 0, 0);
-
-    print_coords(game);
-    show_tooltip(game);
-
-    return 0;
+	player = game->player;
+	move(game, game->player, game->keys);
+	draw_rays(game);
+	put_img_to_img(game->main_image, game->cast_image, 0, 0);
+	draw_minimap(game, game->map, player);
+	draw_line_to_img(game->main_image, vector(game->win_width / 2 - 7,
+			game->win_height / 2), vector(game->win_width / 2 + 7,
+			game->win_height / 2), 0xFFFFFF);
+	draw_line_to_img(game->main_image, vector(game->win_width / 2,
+			game->win_height / 2 - 7), vector(game->win_width / 2,
+			game->win_height / 2 + 7), 0xFFFFFF);
+	mlx_put_image_to_window(game->mlx, game->window, game->main_image, 0, 0);
+	print_coords(game);
+	show_tooltip(game);
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_asset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:56:30 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 17:55:34 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:16:33 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@
 	return ;
 }*/
 
-static int	check_asset(t_assets *assets)
+static int	check_asset(t_assets *assets, char **temp_map)
 {
-	if (assets->ceil_color == -1 || assets->floor_color == -1)
+	if (assets->ceil_color == -1
+		|| assets->floor_color == -1
+		|| assets->east_wall == NULL
+		|| assets->north_wall == NULL
+		|| assets->south_wall == NULL
+		|| assets->west_wall == NULL)
+	{
+		free_temp_map(temp_map);
 		return (1);
-	if (assets->east_wall == NULL)
-		return (1);
-	if (assets->north_wall == NULL)
-		return (1);
-	if (assets->south_wall == NULL)
-		return (1);
-	if (assets->west_wall == NULL)
-		return (1);
+	}
 	return (0);
 }
 
@@ -88,7 +88,7 @@ int	get_asset(t_game *game, char **temp_map)
 			return (1);
 		}
 	}
-	if (check_asset(game->assets) != 0)
+	if (check_asset(game->assets, temp_map) != 0)
 		return (error_msg(game, MISSING_ASSETS));
 	return (0);
 }

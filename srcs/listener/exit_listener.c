@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit_listener.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/23 19:04:21 by vicalvez          #+#    #+#             */
+/*   Updated: 2024/05/23 19:07:32 by vicalvez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
-int    listen_exit(t_game *game)
+int	listen_exit(t_game *game)
 {
-    mlx_loop_end(game->mlx);
-    return (0);
+	mlx_loop_end(game->mlx);
+	return (0);
 }

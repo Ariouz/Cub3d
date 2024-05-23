@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:08 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 18:50:57 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:39:19 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_facing(int da)
 		facing = ft_strdup("Facing: East");
 	else if (da > 45 && da <= 135)
 		facing = ft_strdup("Facing: South");
-	else if (da > 135 && da <= 225)
+	else if (da > 135 && da <= 270)
 		facing = ft_strdup("Facing: West");
 	else
 		facing = ft_strdup("Facing: North");
@@ -47,9 +47,9 @@ void	print_coords(t_game *game)
 	int		da;
 
 	x = get_coord("x: ", game->player->x);
-	y = get_coord("y: ", game->player->y);
+	y = get_coord(" y: ", game->player->y);
+	coords = ft_strjoin(x, y);
 	free(x);
-	coords = ft_strjoin(y, ft_itoa(game->player->y));
 	free(y);
 	mlx_string_put(game->mlx, game->window, game->win_width - MNMP_SLEN
 		- 10, MNMP_SLEN + 25, 0xFFFFFF, coords);

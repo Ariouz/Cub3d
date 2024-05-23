@@ -161,6 +161,7 @@ typedef struct s_game
     int win_width;
     int win_height;
     int mouse_lock;
+    int spawn_angle;
     t_img   *cast_image;
     t_img   *main_image;
     t_pressed_keys *keys;
@@ -224,6 +225,9 @@ double	fix_ang(double a);
 t_vector    vector(double x, double y);
 // Managers
 void    init_listener(t_game *cub);
+void	move(t_game *game, t_player *pl, t_pressed_keys *keys);
+void	move_side(t_player *player, t_pressed_keys *keys, t_map *map);
+void	handle_rotation(t_player *player, t_pressed_keys *keys);
 
 // Listeners
 int listen_exit(t_game *cub);

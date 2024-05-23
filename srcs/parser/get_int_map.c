@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_int_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 14:41:38 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 18:26:48 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:38:45 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,24 @@ void	get_size_malloc(t_game *game, char **map)
 	game->map->size = game->map->height * game->map->width;
 }
 
+void	set_player_coord(t_vector vec, t_game *game)
+{
+	game->map->player_x = vec.ix;
+	game->map->player_y = vec.iy;
+}
+
+void	set_player_rotation(char c, t_game *game)
+{
+	if (c == 'N')
+		game->spawn_angle = 270;
+	else if (c == 'E')
+		game->spawn_angle = 0;
+	else if (c == 'S')
+		game->spawn_angle = 90;
+	else if (c == 'W')
+		game->spawn_angle = 180;
+}
+
 int	*get_int_map2(t_game *game, char **map, int *tiles, t_save_line save)
 {
 	while (map[++save.rows])
@@ -45,8 +63,8 @@ int	*get_int_map2(t_game *game, char **map, int *tiles, t_save_line save)
 		{
 			if (ft_isalpha(map[save.rows][save.cols]))
 			{
-				game->map->player_x = save.cols;
-				game->map->player_y = save.rows;
+				set_player_coord(vector(save.cols, save.rows), game);
+				set_player_rotation(map[save.rows][save.cols], game);
 				tiles[save.index++] = 0;
 			}
 			else if (map[save.rows][save.cols] == ' ')
