@@ -6,11 +6,26 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 15:09:17 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 14:30:35 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:04:37 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void print_map(t_map *map)
+{
+    int i;
+    
+    i = 0;
+    while (i < map->size)
+    {
+        printf("%d,", map->tiles[i]);
+        fflush(NULL);
+        if (i % map->width == map->width -1)
+            printf("\n");
+        i++;
+    }
+}
 
 static int	check_file_extension(char *file)
 {
@@ -88,20 +103,14 @@ int	read_map_temp(t_game *game, char **argv)
 	temp_map = get_temp_map(game, argv[0]);
 	if (temp_map == NULL)
 		return (error_msg(game, MALLOC_ERROR));	
-	for (int i = 0; temp_map[i]; i++) {	// ONLY FOR TEST
-		printf("%s", temp_map[i]);
-	}
-	printf("\n");
 	if (get_asset(game, temp_map) != 0)
 		return (1);
 	map_description = get_map_description(temp_map);
 	if (map_description == NULL)
 		return (error_msg(game, MALLOC_ERROR));
-	printf("map description:\n");
-	for (int i = 0; map_description[i]; i++)
-		printf("%s", map_description[i]);
-	printf("\n");
 	if (check_map(game, map_description) != 0)
+		return (1);
+	if (get_int_map(game, map_description) != 0)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:24:27 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 09:46:53 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:03:21 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	get_north_asset(t_game *game, t_assets *assets, char *line)
 	if (temp == NULL)
 		return (error_msg(game, MALLOC_ERROR));
 	ft_strlcpy(temp, line + index, size + 1);
-	printf("path to the north texture: %s\n", temp); // TO DELETE ONLY FOR TESTING
 	assets->north_wall = mlx_xpm_file_to_image(game->mlx, temp, &w, &h);
 	free(temp);
 	if (assets->north_wall == NULL)

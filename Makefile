@@ -33,6 +33,7 @@ parser/get_map_description.c \
 parser/check_map.c \
 parser/check_element.c \
 parser/check_wall.c \
+parser/get_int_map.c \
 renderer/renderer.c \
 renderer/raycaster.c \
 renderer/minimap.c \

@@ -119,6 +119,7 @@ typedef struct s_map
     int width;
     int player_x;
     int player_y;
+    int size;
     t_map_setting *setting;
 }  t_map;
 
@@ -173,6 +174,7 @@ char	**get_map_description(char **map);
 int	    check_map(t_game *game, char **map);
 int	    check_element(t_game *game, char **map);
 int	    check_wall(char **map);
+int	    get_int_map(t_game *game, char **map);
 
 // Render
 int     render_map(t_game *game);

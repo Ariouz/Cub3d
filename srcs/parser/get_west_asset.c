@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:25:11 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 09:17:50 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:03:36 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	get_west_asset(t_game *game, t_assets *assets, char *line)
 	if (temp == NULL)
 		return (error_msg(game, MALLOC_ERROR));
 	ft_strlcpy(temp, line + index, size + 1);
-	printf("path to the west texture: %s\n", temp); // TO DELETE ONLY FOR TESTING
 	assets->west_wall = mlx_xpm_file_to_image(game->mlx, temp, &w, &h);
 	free(temp);
 	if (assets->west_wall == NULL)

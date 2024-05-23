@@ -6,7 +6,7 @@
 /*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 07:32:28 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 13:17:15 by gurousta         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:03:51 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,5 @@ int	get_floor_color(t_game *game, t_assets *assets, char *line)
 		return (error_msg(game, WRONG_MAP_ARGUMENT));
 	if (get_color(game, &assets->floor_color, line + index) != 0)
 		return (1);
-	printf("floor color = %d\n", assets->floor_color); // TO DELTE ONLY FOR TESTING
 	return (0);
 }

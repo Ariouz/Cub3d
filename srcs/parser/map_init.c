@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:26 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 15:00:59 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:10:19 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int init_map(t_game *game, char **argv)
     map->height = 0;
     map->player_x = 0;
     map->player_y = 0;
+    map->size = 0;
     map->tiles = NULL;
     map->setting = NULL;
     game->map = map;
