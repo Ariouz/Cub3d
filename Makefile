@@ -8,6 +8,7 @@ SRCS_DIR= srcs/
 SRCS= $(GNL_SRCS) $(addprefix $(SRCS_DIR), \
 cub3d.c \
 manager/listener_manager.c \
+manager/move.c \
 listener/exit_listener.c \
 listener/key_press_listener.c \
 listener/mouse_listener.c \
@@ -19,6 +20,7 @@ utils/error_msg.c \
 utils/free_utils.c \
 utils/fog.c \
 utils/vector.c \
+utils/map_utils.c \
 parser/map_init.c \
 parser/map_reader.c \
 parser/map_reader_temp.c \
@@ -37,6 +39,9 @@ parser/check_wall.c \
 parser/get_int_map.c \
 renderer/renderer.c \
 renderer/raycaster.c \
+renderer/raycaster2.c \
+renderer/raycaster_h.c \
+renderer/raycaster_v.c \
 renderer/minimap.c \
 renderer/tooltip.c)
 

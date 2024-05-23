@@ -25,9 +25,10 @@
 # define PLAYER_SPEED 12
 # define PLAYER_ROTATION_SPEED 0.2
 # define TILE_SIZE 64
+# define MN_TSIZE 12
 # define PLAYER_FOV 60
 
-# define MINIMAP_SIDE_LEN 100
+# define MNMP_SLEN 100
 
 # define DESTROY_HOOK 17
 # define KEY_PRESSED_HOOK 2
@@ -193,7 +194,13 @@ void    show_tooltip(t_game *game);
 void    check_horizontal(t_map *map, t_raycast *ray);
 void    check_vertical(t_map *map, t_raycast *ray);
 void    draw_rays(t_game *game);
-void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int color);
+void	draw_walls(t_game *game, t_raycast *ray, t_player *player, t_vector infos);
+void	draw_floor_ceil(t_vector vars, t_vector infos, t_vector line_vec,
+	t_game *game);
+void	prevent_line_oversize(t_vector *line_vec, t_vector *tex_vec,
+	t_game *game);
+t_img	*get_texture(t_raycast *ray, t_vector infos, t_vector *tcoord,
+	t_game *game);
 
 // Utils
 int	get_pixel_color_fog(t_raycast *ray, int color);
@@ -214,6 +221,7 @@ void	put_pixel_img_radius(t_img img, t_vector vec, int color, int thickness);
 void	put_img_to_img(t_img *dst, t_img *src, int x, int y);
 void	draw_line_to_img(t_img *img, t_vector v1, t_vector v2, int color);
 void	draw_rect_to_img(t_img *img, t_vector v1, t_vector v2, int color);
+double	fix_ang(double a);
 
 t_vector    vector(double x, double y);
 // Managers

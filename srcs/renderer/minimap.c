@@ -6,99 +6,118 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:08 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 16:26:06 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:43:42 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    print_coords(t_game *game)
+char	*get_coord(char *s, double coord)
 {
-    char *x;
-    char *y;
-    char *coords;
-    char *facing;
-    int da;
+	char	*itoa;
+	char	*res;
 
-    x = ft_strjoin("x: ", ft_itoa(game->player->x));
-    y = ft_strjoin(x, " y: ");
-    free(x);
-    coords = ft_strjoin(y, ft_itoa(game->player->y));
-    free(y);
-    mlx_string_put(game->mlx, game->window, game->win_width - MINIMAP_SIDE_LEN - 10, MINIMAP_SIDE_LEN + 25, 0xFFFFFF, coords);
-    free(coords);
-
-    da = to_degrees(game->player->angle);
-    if (da >= 315 || (da >= 0 && da <= 45))
-        facing = ft_strdup("Facing: East");
-    else if (da > 45 && da <= 135)
-        facing = ft_strdup("Facing: South");
-    else if (da > 135 && da <= 225)
-        facing = ft_strdup("Facing: West");
-    else
-        facing = ft_strdup("Facing: North");
-    
-    if (facing)
-    {
-        mlx_string_put(game->mlx, game->window, game->win_width - MINIMAP_SIDE_LEN - 10, MINIMAP_SIDE_LEN + 40, 0xFFFFFF, facing);
-        free(facing);
-    }
+	itoa = ft_itoa(coord);
+	res = ft_strjoin(s, itoa);
+	free(itoa);
+	return (res);
 }
 
-void    draw_minimap(t_game *game, t_map *map, t_player *player)
+char	*get_facing(int da)
 {
-    (void) player;
-    (void) map;
-    int x;
-    int y;
-    int mpx;
-    int mpy; 
+	char	*facing;
 
-    x = game->win_width - MINIMAP_SIDE_LEN - 20;
-    y = 10;
+	if (da >= 315 || (da >= 0 && da <= 45))
+		facing = ft_strdup("Facing: East");
+	else if (da > 45 && da <= 135)
+		facing = ft_strdup("Facing: South");
+	else if (da > 135 && da <= 225)
+		facing = ft_strdup("Facing: West");
+	else
+		facing = ft_strdup("Facing: North");
+	return (facing);
+}
 
-    draw_rect_to_img(game->main_image, vector(x, y), vector(x + MINIMAP_SIDE_LEN, y + MINIMAP_SIDE_LEN), 0xFF8c00); // background
-    
-    mpx = x + MINIMAP_SIDE_LEN / 2;
-    mpy = y + MINIMAP_SIDE_LEN / 2;
+void	print_coords(t_game *game)
+{
+	char	*x;
+	char	*y;
+	char	*coords;
+	char	*facing;
+	int		da;
 
-    int radius;
-    int rx;
-    int ry;
+	x = get_coord("x: ", game->player->x);
+	y = get_coord("y: ", game->player->y);
+	free(x);
+	coords = ft_strjoin(y, ft_itoa(game->player->y));
+	free(y);
+	mlx_string_put(game->mlx, game->window, game->win_width - MNMP_SLEN
+		- 10, MNMP_SLEN + 25, 0xFFFFFF, coords);
+	free(coords);
+	da = to_degrees(game->player->angle);
+	facing = get_facing(da);
+	if (facing)
+	{
+		mlx_string_put(game->mlx, game->window, game->win_width
+			- MNMP_SLEN - 10, MNMP_SLEN + 40, 0xFFFFFF, facing);
+		free(facing);
+	}
+}
 
-    int px;
-    int py;
+void	draw_minimap2(t_vector p_vec, t_vector *r_vec, t_vector m_vec,
+		t_game *game)
+{
+	t_map		*map;
+	t_vector	t_vec;
+	int			color;
+	int			radius;
 
-    px = player->x / TILE_SIZE;
-    py = player->y / TILE_SIZE;
+	radius = -r_vec->iy;
+	t_vec.ix = r_vec->ix;
+	map = game->map;
+	while (r_vec->iy < radius)
+	{
+		t_vec.iy = r_vec->iy;
+		if (p_vec.iy + r_vec->iy < 0 || p_vec.iy + r_vec->iy >= map->height
+			|| p_vec.ix + r_vec->ix < 0 || p_vec.ix + r_vec->ix >= map->width)
+			color = 0x111111;
+		else if (map->tiles[(p_vec.iy + r_vec->iy) * map->width + p_vec.ix
+				+ r_vec->ix] == MAP_WALL)
+			color = 0x222222;
+		else
+			color = 0x999999;
+		draw_rect_to_img(game->main_image, vector(m_vec.ix
+				+ (t_vec.ix * MN_TSIZE), m_vec.iy + (t_vec.iy * MN_TSIZE)),
+			vector(m_vec.ix + (t_vec.ix * MN_TSIZE) + MN_TSIZE, m_vec.iy
+				+ (t_vec.iy * MN_TSIZE) + MN_TSIZE), color);
+		r_vec->iy++;
+	}
+}
 
-    int tx;
-    int ty;
+void	draw_minimap(t_game *game, t_map *map, t_player *player)
+{
+	t_vector	c_vec;
+	t_vector	m_vec;
+	t_vector	r_vec;
+	t_vector	p_vec;
+	int			radius;
 
-    int t_size;
-    int t_color;
-    t_size = 12;
-
-    radius = 4;
-    rx = -radius;
-    while (rx < radius)
-    {
-        ry = -radius;
-        tx = rx;
-        while (ry < radius)
-        {
-            ty = ry;      
-            if ((py + ry) < 0 || (py + ry) >= map->height || (px + rx) < 0 || (px + rx) >= map->width)
-                t_color = 0x111111;      
-            else if (map->tiles[(py + ry) * map->width + (px + rx)] == MAP_WALL)
-                t_color = 0x222222;  
-            else
-                t_color = 0x999999;      
-            draw_rect_to_img(game->main_image, vector(mpx + (tx * t_size), mpy + (ty * t_size)), vector(mpx + (tx * t_size) + t_size, mpy + (ty * t_size) + t_size), t_color);      
-        
-            ry++;
-        }
-        rx++;
-    }
-    draw_rect_to_img(game->main_image, vector(mpx - 2, mpy - 2), vector(mpx + 2, mpy + 2), 0xFFFFFF); // player
+	(void) player;
+	(void) map;
+	c_vec = vector(game->win_width - MNMP_SLEN - 20, 10);
+	draw_rect_to_img(game->main_image, vector(c_vec.ix, c_vec.iy),
+		vector(c_vec.ix + MNMP_SLEN, c_vec.iy + MNMP_SLEN), 0xFF8c00);
+	m_vec = vector(c_vec.ix + MNMP_SLEN / 2, c_vec.iy + MNMP_SLEN / 2);
+	p_vec = vector(player->x / TILE_SIZE, player->y / TILE_SIZE);
+	radius = 4;
+	r_vec = vector(0, 0);
+	r_vec.ix = -radius;
+	while (r_vec.ix < radius)
+	{
+		r_vec.iy = -radius;
+		draw_minimap2(p_vec, &r_vec, m_vec, game);
+		r_vec.ix++;
+	}
+	draw_rect_to_img(game->main_image, vector(m_vec.ix - 2, m_vec.iy - 2),
+		vector(m_vec.ix + 2, m_vec.iy + 2), 0xFFFFFF);
 }

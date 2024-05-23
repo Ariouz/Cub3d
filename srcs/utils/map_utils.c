@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   math_utils.c                                       :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 16:22:58 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 17:05:58 by vicalvez         ###   ########.fr       */
+/*   Created: 2024/05/23 17:05:33 by vicalvez          #+#    #+#             */
+/*   Updated: 2024/05/23 17:05:43 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-double	to_radians(double degrees)
+int	get_player_tile(double player_pos)
 {
-	return (degrees * (PI / 180));
+	return (player_pos / TILE_SIZE);
 }
 
-double	to_degrees(double radians)
+int	get_tile_at(int x, int y, t_map *map)
 {
-	return ((radians * 180) / PI);
-}
-
-double	center_pos(double pos)
-{
-	return (pos + (TILE_SIZE / 2));
-}
-
-double	dist(float ax, float ay, float bx, float by)
-{
-	return (sqrt((bx - ax) * (bx - ax) + (by - ay) * (by - ay)));
+	return (map->tiles[x + (y * map->width)]);
 }

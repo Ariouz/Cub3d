@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:23 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 16:24:36 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:29:43 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,94 +40,6 @@ void    draw_map(t_game *game, t_map *map)
         }
         x = 0;
         y++;
-    }
-}
-
-void    move(t_game *game, t_player *player, t_pressed_keys *keys)
-{
-    t_map *map;
-    int xo;
-    int yo;
-    int ipx;
-    int ipx_add_xo;
-    int ipx_sub_xo;
-    int ipy;
-    int ipy_add_yo;
-    int ipy_sub_yo;
-
-    map = game->map;
-    if (player->dirX < 0)
-        xo = -20;
-    else
-        xo = 20;
-    if (player->dirY < 0)
-        yo = -20;
-    else
-        yo = 20;
-    ipx = player->x / TILE_SIZE;
-    ipx_add_xo = (player->x + xo) / TILE_SIZE;
-    ipx_sub_xo = (player->x - xo) / TILE_SIZE;
-
-    ipy = player->y / TILE_SIZE;
-    ipy_add_yo = (player->y + yo) / TILE_SIZE;
-    ipy_sub_yo = (player->y - yo) / TILE_SIZE;
-
-
-    if (keys->w)
-    {
-        if (map->tiles[ipy*map->width + ipx_add_xo] == 0)
-            player->x += player->dirX;
-        if (map->tiles[ipy_add_yo * map->width + ipx] == 0)
-            player->y += player->dirY;
-    }
-
-    if (keys->s)
-    {
-        if (map->tiles[ipy*map->width + ipx_sub_xo] == 0)
-            player->x -= player->dirX;
-        if (map->tiles[ipy_sub_yo * map->width + ipx] == 0)
-            player->y -= player->dirY;
-    }
-    
-    if (keys->a)
-    {
-        player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
-            player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
-
-        player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
-            player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
-    }
-
-    if (keys->d)
-    {
-        player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[(int)((int)(player->y/ TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
-            player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
-
-        player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
-            player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
-
-    }
-
-    if (keys->la)
-    {
-        player->angle -= PLAYER_ROTATION_SPEED;
-        if (player->angle < 0)
-            player->angle += 2 * PI;
-        player->dirX = cos(player->angle) * PLAYER_SPEED;
-        player->dirY = sin(player->angle) * PLAYER_SPEED;
-    }
-
-    if (keys->ra)
-    {
-        player->angle += PLAYER_ROTATION_SPEED;
-        if (player->angle > 2 * PI)
-            player->angle -= 2 * PI;
-        player->dirX = cos(player->angle) * PLAYER_SPEED;
-        player->dirY = sin(player->angle) * PLAYER_SPEED;
     }
 }
 
