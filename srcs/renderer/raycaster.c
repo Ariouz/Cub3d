@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:19 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 18:27:36 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:50:57 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player,
 
 	vars = vector(fix_ang(player->angle - ray->ra), 0);
 	ray->dist *= cos(vars.dx);
-	line_vec = vector((TILE_SIZE * game->win_height) / ray->dist, 0);
+	line_vec = vector((TL_S * game->win_height) / ray->dist, 0);
 	tex_vec = vector (32 / line_vec.dx, 0);
 	prevent_line_oversize(&line_vec, &tex_vec, game);
 	line_vec.dy = game->win_height / 2 - (line_vec.dx / 2);

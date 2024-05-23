@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 17:05:33 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 17:05:43 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:50:57 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	get_player_tile(double player_pos)
 {
-	return (player_pos / TILE_SIZE);
+	return (player_pos / TL_S);
 }
 
 int	get_tile_at(int x, int y, t_map *map)

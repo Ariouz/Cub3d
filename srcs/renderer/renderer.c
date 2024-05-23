@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:23 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 18:35:42 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:53:19 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    draw_map(t_game *game, t_map *map)
     
     x = 0;
     y = 0;
-    maps = TILE_SIZE;
+    maps = TL_S;
     while (y < map->height)
     {
         while (x < map->width)

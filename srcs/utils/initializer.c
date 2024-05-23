@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:39 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 18:35:36 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:50:57 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	init_player(t_game *game)
     player = ft_calloc(1, sizeof(t_player));
     if (player == NULL)
         return (error_msg(game, MALLOC_ERROR));
-    player->x = center_pos(game->map->player_x * TILE_SIZE);
-    player->y = center_pos(game->map->player_y * TILE_SIZE);
+    player->x = center_pos(game->map->player_x * TL_S);
+    player->y = center_pos(game->map->player_y * TL_S);
     player->angle = to_radians(0);
     player->dirX = cos(player->angle) * PLAYER_SPEED;
     player->dirY = sin(player->angle) * PLAYER_SPEED;

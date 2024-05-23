@@ -9,6 +9,7 @@ SRCS= $(GNL_SRCS) $(addprefix $(SRCS_DIR), \
 cub3d.c \
 manager/listener_manager.c \
 manager/move.c \
+manager/move2.c \
 listener/exit_listener.c \
 listener/key_press_listener.c \
 listener/mouse_listener.c \

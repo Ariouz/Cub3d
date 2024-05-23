@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:08 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 17:43:42 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:50:57 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	draw_minimap(t_game *game, t_map *map, t_player *player)
 	draw_rect_to_img(game->main_image, vector(c_vec.ix, c_vec.iy),
 		vector(c_vec.ix + MNMP_SLEN, c_vec.iy + MNMP_SLEN), 0xFF8c00);
 	m_vec = vector(c_vec.ix + MNMP_SLEN / 2, c_vec.iy + MNMP_SLEN / 2);
-	p_vec = vector(player->x / TILE_SIZE, player->y / TILE_SIZE);
+	p_vec = vector(player->x / TL_S, player->y / TL_S);
 	radius = 4;
 	r_vec = vector(0, 0);
 	r_vec.ix = -radius;

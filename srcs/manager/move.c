@@ -6,102 +6,60 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:29:29 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 18:34:27 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:52:35 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    handle_rotation(t_player *player, t_pressed_keys *keys)
+void	move_frontward(t_map *map, t_player *player, t_vector add_vec,
+	t_vector i_vec)
 {
-    if (keys->la)
-    {
-        player->angle -= PLAYER_ROTATION_SPEED;
-        if (player->angle < 0)
-            player->angle += 2 * PI;
-        player->dirX = cos(player->angle) * PLAYER_SPEED;
-        player->dirY = sin(player->angle) * PLAYER_SPEED;
-    }
-
-    if (keys->ra)
-    {
-        player->angle += PLAYER_ROTATION_SPEED;
-        if (player->angle > 2 * PI)
-            player->angle -= 2 * PI;
-        player->dirX = cos(player->angle) * PLAYER_SPEED;
-        player->dirY = sin(player->angle) * PLAYER_SPEED;
-    }
+	if (map->tiles[i_vec.iy * map->width + add_vec.ix] == 0)
+		player->x += player->dirX;
+	if (map->tiles[add_vec.iy * map->width + i_vec.ix] == 0)
+		player->y += player->dirY;
 }
 
-void    move_side(t_player *player, t_pressed_keys *keys, t_map *map)
+void	move_backward(t_map *map, t_player *player, t_vector sub_vec,
+	t_vector i_vec)
 {
-    if (keys->a)
-    {
-        player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
-            player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
-
-        player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
-            player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
-    }
-
-    if (keys->d)
-    {
-        player->x += cos(player->angle + to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[(int)((int)(player->y/ TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
-            player->x += cos(player->angle - to_radians(90)) * PLAYER_SPEED;
-
-        player->y += sin(player->angle + to_radians(90)) * PLAYER_SPEED;
-        if (map->tiles[(int)((int)(player->y / TILE_SIZE) * map->width + (int)(player->x / TILE_SIZE))] == MAP_WALL)
-            player->y += sin(player->angle - to_radians(90)) * PLAYER_SPEED;
-
-    }
+	if (map->tiles[i_vec.iy * map->width + sub_vec.ix] == 0)
+		player->x -= player->dirX;
+	if (map->tiles[sub_vec.iy * map->width + i_vec.ix] == 0)
+		player->y -= player->dirY;
 }
 
-void    move(t_game *game, t_player *player, t_pressed_keys *keys)
+void	move_player(t_pressed_keys *keys, t_map *map, t_player *player)
 {
-    t_map *map;
-    t_vector    o_vec;
-    t_vector    i_vec;
-    int ipx_add_xo;
-    int ipx_sub_xo;
-    int ipy_add_yo;
-    int ipy_sub_yo;
+	move_side(player, keys, map);
+	handle_rotation(player, keys);
+}
 
-    map = game->map;
-    o_vec = vector(0, 0);
-    if (player->dirX < 0)
-        o_vec.ix = -20;
-    else
-        o_vec.ix = 20;
-    if (player->dirY < 0)
-        o_vec.iy = -20;
-    else
-        o_vec.iy = 20;
-    i_vec = vector(player->x / TILE_SIZE, player->y / TILE_SIZE);
-    ipx_add_xo = (player->x + o_vec.ix) / TILE_SIZE;
-    ipx_sub_xo = (player->x - o_vec.ix) / TILE_SIZE;
+void	move(t_game *game, t_player *pl, t_pressed_keys *keys)
+{
+	t_map		*map;
+	t_vector	o_vec;
+	t_vector	i_vec;
+	t_vector	add_vec;
+	t_vector	sub_vec;
 
-    ipy_add_yo = (player->y + o_vec.iy) / TILE_SIZE;
-    ipy_sub_yo = (player->y - o_vec.iy) / TILE_SIZE;
-
-    if (keys->w)
-    {
-        if (map->tiles[i_vec.iy*map->width + ipx_add_xo] == 0)
-            player->x += player->dirX;
-        if (map->tiles[ipy_add_yo * map->width + i_vec.ix] == 0)
-            player->y += player->dirY;
-    }
-
-    if (keys->s)
-    {
-        if (map->tiles[i_vec.iy*map->width + ipx_sub_xo] == 0)
-            player->x -= player->dirX;
-        if (map->tiles[ipy_sub_yo * map->width + i_vec.ix] == 0)
-            player->y -= player->dirY;
-    }
-    
-    move_side(player, keys, map);
-    handle_rotation(player, keys);
+	o_vec = vector(0, 0);
+	if (pl->dirX < 0)
+		o_vec.ix = -20;
+	else
+		o_vec.ix = 20;
+	if (pl->dirY < 0)
+		o_vec.iy = -20;
+	else
+		o_vec.iy = 20;
+	i_vec = vector(pl->x / TL_S, pl->y / TL_S);
+	add_vec = vector((pl->x + o_vec.ix) / TL_S, (pl->y + o_vec.iy) / TL_S);
+	sub_vec = vector((pl->x - o_vec.ix) / TL_S, (pl->y - o_vec.iy) / TL_S);
+	map = game->map;
+	if (keys->w)
+		move_frontward(map, pl, add_vec, i_vec);
+	if (keys->s)
+		move_backward(map, pl, sub_vec, i_vec);
+	move_player(map, keys, pl);
 }

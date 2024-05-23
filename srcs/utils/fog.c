@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 15:18:10 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 16:05:34 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:50:57 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	get_pixel_color_fog(t_raycast *ray, int color)
 	t_color	fog_color;
 	t_color	px_color;
 
-	max_distance = 12 * TILE_SIZE;
+	max_distance = 12 * TL_S;
 	fog_factor = ray->dist / max_distance;
 	if (fog_factor > 1)
 		fog_factor = 1;

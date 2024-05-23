@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:58 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 17:05:58 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:50:57 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ double	to_degrees(double radians)
 
 double	center_pos(double pos)
 {
-	return (pos + (TILE_SIZE / 2));
+	return (pos + (TL_S / 2));
 }
 
 double	dist(float ax, float ay, float bx, float by)
