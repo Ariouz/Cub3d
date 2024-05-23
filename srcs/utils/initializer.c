@@ -2,8 +2,8 @@
 
 void    init_value(t_game *game)
 {
-    game->win_width = 848;
-    game->win_height = 480;
+    game->win_width = 960;
+    game->win_height = 640;
     game->mlx = NULL;
     game->window = NULL;
     game->map = NULL;
@@ -11,7 +11,7 @@ void    init_value(t_game *game)
     game->keys = NULL;
     game->assets = NULL;
     game->cast_image = NULL;
-    game->main_image = NULL;  
+    game->main_image = NULL;
 }
 
 int init_player(t_game *game)
@@ -63,8 +63,8 @@ void    init_assets(t_game *game)
     assets->south_wall = mlx_xpm_file_to_image(game->mlx, "assets/south_wall.xpm", &w, &h);
     assets->east_wall = mlx_xpm_file_to_image(game->mlx, "assets/east_wall.xpm", &w, &h);
     assets->west_wall = mlx_xpm_file_to_image(game->mlx, "assets/west_wall.xpm", &w, &h);
-    assets->floor_color = 0x444444;
-    assets->ceil_color = 0x777777;
+    assets->floor_color = 0x114411;
+    assets->ceil_color = 0x004477;
     game->assets = assets;
 }
 
