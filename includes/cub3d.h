@@ -63,6 +63,15 @@
 # define MAP_DESCRIPTION_PLAYER_ERROR "The map description must have only one player spawn\n"
 # define MAP_DESCRIPTION_WALL_ERROR "The map description must close by wall\n"
 
+typedef struct s_vector
+{
+    double  dx;
+    double  dy;
+    int     ix;
+    int     iy;
+}   t_vector;
+
+
 typedef struct s_color
 {
     int r;
@@ -201,11 +210,12 @@ int     error_open(t_game *game, char *file);
 int     get_player_tile(double player_pos);
 int     get_tile_at(int x, int y, t_map *map);
 void	put_pixel_img(t_img img, int x, int y, int color);
-void	put_pixel_img_radius(t_img img, int x, int y, int color, int thickness);
+void	put_pixel_img_radius(t_img img, t_vector vec, int color, int thickness);
 void	put_img_to_img(t_img *dst, t_img *src, int x, int y);
-void    draw_line_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color);
-void    draw_rect_to_img(t_img *img, int beginX, int beginY, int endX, int endY, int color, int width);
+void	draw_line_to_img(t_img *img, t_vector v1, t_vector v2, int color);
+void	draw_rect_to_img(t_img *img, t_vector v1, t_vector v2, int color);
 
+t_vector    vector(double x, double y);
 // Managers
 void    init_listener(t_game *cub);
 

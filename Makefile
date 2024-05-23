@@ -18,6 +18,7 @@ utils/math_utils.c \
 utils/error_msg.c \
 utils/free_utils.c \
 utils/fog.c \
+utils/vector.c \
 parser/map_init.c \
 parser/map_reader.c \
 parser/map_reader_temp.c \

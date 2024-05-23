@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_msg.c                                        :+:      :+:    :+:   */
+/*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/22 14:28:59 by gurousta          #+#    #+#             */
-/*   Updated: 2024/05/23 16:27:01 by vicalvez         ###   ########.fr       */
+/*   Created: 2024/05/23 16:22:34 by vicalvez          #+#    #+#             */
+/*   Updated: 2024/05/23 16:40:55 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+# include "cub3d.h"
 
-int	error_open(t_game *game, char *file)
+t_vector    vector(double x, double y)
 {
-	write(1, "Error\n", 7);
-	perror(file);
-	return (1);
-}
+    t_vector    vector;
 
-int	error_msg(t_game *game, char *err_msg)
-{
-	printf("Error\n%s", err_msg);
-	exit(1);
-	return (1);
+    vector.ix = (int) x;
+    vector.iy = (int) y;
+    vector.dx = x;
+    vector.dy = y;
+    return (vector);
 }

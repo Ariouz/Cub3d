@@ -6,7 +6,7 @@
 /*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 16:22:19 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 16:06:40 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:44:55 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,12 @@ void    draw_rays(t_game *game)
 			ray->dist = ray->dis_h;
 			draw_walls(game, ray, player, i, cardinal);
 		}
-
-		// Afficher rayons
-		// draw_line_to_img(game->cast_image, player->x, player->y, ray->rx, ray->ry, 0x77FF0000);
-
 		ray->ra += DR / 2;
 		if (ray->ra < 0) ray->ra += 2 * PI;
 		if (ray->ra > 2 * PI) ray->ra -= 2 * PI;
 		i++;
 	}
+	free(ray);
 }
 
 
@@ -110,8 +107,8 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 	y = lineO + lineH;
 	while (y < game->win_height)
 	{
-		put_pixel_img_radius(*game->cast_image,  rid * 8, y, game->assets->floor_color, 8);
-		put_pixel_img_radius(*game->cast_image,  rid * 8, game->win_height - y - 8, game->assets->ceil_color, 8);
+		put_pixel_img_radius(*game->cast_image,  vector(rid * 8, y), game->assets->floor_color, 8);
+		put_pixel_img_radius(*game->cast_image,  vector(rid * 8, game->win_height - y - 8), game->assets->ceil_color, 8);
 		y++;
 	}
 
@@ -143,7 +140,7 @@ void	draw_walls(t_game *game, t_raycast *ray, t_player *player, int rid, int car
 	while (y < lineH)
 	{
 		//put_pixel_img_radius(*game->cast_image,  rid * 8, y + lineO, get_pixel_img(*texture, tx,  ty), 8);
-		put_pixel_img_radius(*game->cast_image,  rid * 8, y + lineO, get_pixel_color_fog(ray, get_pixel_img(*texture, tx,  ty)), 8);
+		put_pixel_img_radius(*game->cast_image,  vector(rid * 8, y + lineO), get_pixel_color_fog(ray, get_pixel_img(*texture, tx,  ty)), 8);
 		y++;
 		ty += step;
 	}
