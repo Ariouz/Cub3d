@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 09:39:12 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/16 10:09:03 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:45:32 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*gnl_ft_strjoin(char *s1, char *s2)
 		s1 = malloc(sizeof(char) * 1);
 		s1[0] = 0;
 	}
-	dst = malloc(sizeof(char) * gnl_str_len((char *)s1) + gnl_str_len((char *)s2) + 1);
+	dst = malloc(sizeof(char) * gnl_str_len(s1) + gnl_str_len(s2) + 1);
 	if (!dst)
 		return (NULL);
 	while (s1[++i])

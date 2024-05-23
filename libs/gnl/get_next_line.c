@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gurousta <gurousta@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 10:48:10 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/16 10:09:34 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 19:46:46 by gurousta         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*rem_previous_line(char *str, char *line)
 		return (NULL);
 	}
 	ret = gnl_ft_substr(str, gnl_str_len(line), gnl_str_len(str)
-		 - gnl_str_len(line));
+			- gnl_str_len(line));
 	free(str);
 	if (!ret)
 		return (NULL);
