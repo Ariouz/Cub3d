@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:52:39 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 18:52:48 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 21:37:58 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void	handle_rotation(t_player *player, t_pressed_keys *keys)
 		player->angle -= PLAYER_ROTATION_SPEED;
 		if (player->angle < 0)
 			player->angle += 2 * PI;
-		player->dirX = cos(player->angle) * PLAYER_SPEED;
-		player->dirY = sin(player->angle) * PLAYER_SPEED;
+		player->dirx = cos(player->angle) * PLAYER_SPEED;
+		player->diry = sin(player->angle) * PLAYER_SPEED;
 	}
 	if (keys->ra)
 	{
 		player->angle += PLAYER_ROTATION_SPEED;
 		if (player->angle > 2 * PI)
 			player->angle -= 2 * PI;
-		player->dirX = cos(player->angle) * PLAYER_SPEED;
-		player->dirY = sin(player->angle) * PLAYER_SPEED;
+		player->dirx = cos(player->angle) * PLAYER_SPEED;
+		player->diry = sin(player->angle) * PLAYER_SPEED;
 	}
 }
 

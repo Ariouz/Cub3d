@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vicalvez <vicalvez@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vicalvez <vicalvez@student.42nice.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 18:29:29 by vicalvez          #+#    #+#             */
-/*   Updated: 2024/05/23 19:01:08 by vicalvez         ###   ########.fr       */
+/*   Updated: 2024/05/23 21:37:46 by vicalvez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@ void	move_frontward(t_map *map, t_player *player, t_vector add_vec,
 	t_vector i_vec)
 {
 	if (map->tiles[i_vec.iy * map->width + add_vec.ix] == 0)
-		player->x += player->dirX;
+		player->x += player->dirx;
 	if (map->tiles[add_vec.iy * map->width + i_vec.ix] == 0)
-		player->y += player->dirY;
+		player->y += player->diry;
 }
 
 void	move_backward(t_map *map, t_player *player, t_vector sub_vec,
 	t_vector i_vec)
 {
 	if (map->tiles[i_vec.iy * map->width + sub_vec.ix] == 0)
-		player->x -= player->dirX;
+		player->x -= player->dirx;
 	if (map->tiles[sub_vec.iy * map->width + i_vec.ix] == 0)
-		player->y -= player->dirY;
+		player->y -= player->diry;
 }
 
 void	move_player(t_pressed_keys *keys, t_map *map, t_player *player)
@@ -45,11 +45,11 @@ void	move(t_game *game, t_player *pl, t_pressed_keys *keys)
 	t_vector	sub_vec;
 
 	o_vec = vector(0, 0);
-	if (pl->dirX < 0)
+	if (pl->dirx < 0)
 		o_vec.ix = -20;
 	else
 		o_vec.ix = 20;
-	if (pl->dirY < 0)
+	if (pl->diry < 0)
 		o_vec.iy = -20;
 	else
 		o_vec.iy = 20;

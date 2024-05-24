@@ -1,7 +1,7 @@
-NO     ./assets/north_wall.xpm
-SO    ./assets/south_wall.xpm
-WE ./assets/west_wall.xpm
-EA ./assets/east_wall.xpm
+NO     ./assets/north_wall2.xpm
+SO    ./assets/south_wall2.xpm
+WE ./assets/west_wall2.xpm
+EA ./assets/east_wall2.xpm
 
 F 0,255,0
 C 255,255,255
